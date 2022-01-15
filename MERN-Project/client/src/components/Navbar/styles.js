@@ -3,20 +3,20 @@ import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
     appBar: {
-        borderRadius: 15,
-        margin: '30px 0',
+        borderRadius: 0,
+        margin: '10px',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '10px 50px',
+        padding: '10px 20px',
     },
     heading: {
-        color: 'rgba(0,183,255, 1)',
+        color: 'rgb(20,20,20)',
         textDecoration: 'none',
     },
     image: {
-        marginLeft: '15px',
+        margin: '15px',
     },
     toolbar: {
         display: 'flex',

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
-import diary from '../../images/diary.png';
+import logo from '../../images/logo.png';
 
 
 const Navbar = () => {
@@ -49,16 +49,18 @@ const Navbar = () => {
 
             <div className={classes.brandContainer}>
 
+                <img className={classes.image}
+                    src={logo}
+                    alt="logo"
+                    height="60" />
+                    
                 <Typography component={Link} to='/' className={classes.heading}
                     variant="h2"
                     align="center">
-                    My Diary
+                     Aep-Seap Aep-Bok
                 </Typography>
 
-                <img className={classes.image}
-                    src={diary}
-                    alt="diary"
-                    height="60" />
+                
 
             </div>
 
