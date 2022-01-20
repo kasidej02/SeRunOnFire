@@ -48,11 +48,13 @@ const Navbar = () => {
             color="inherit">
 
             <div className={classes.brandContainer}>
-
+                <Link to='/' className={classes.brandContainer}>
                 <img className={classes.image}
                     src={logo}
                     alt="logo"
                     height="60" />
+                </Link>
+                
                     
                 <Typography component={Link} to='/' className={classes.heading}
                     variant="h2"
