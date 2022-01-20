@@ -43,10 +43,11 @@ export default makeStyles({
   },
   title: {
     padding: '0 16px',
+    display: 'flex',
   },
   cardActions: {
-    padding: '0 16px 8px 16px',
-    display: 'flex',
+    // padding: '0 16px 8px 16px',
+    display: 'block',
     justifyContent: 'space-between',
   },
 });
