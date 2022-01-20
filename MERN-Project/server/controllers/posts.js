@@ -6,10 +6,39 @@ import PostMessage from "../models/postMessage.js";
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
+  const { page } = req.query;
   try {
-    const postMessages = await PostMessage.find();
+    const limit = 4;
+    const startIndex = (Number(page) - 1) * limit;
+    const total = await PostMessage.countDocuments({});
+    const posts = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(limit)
+      .skip(startIndex);
 
-    res.status(200).json(postMessages);
+    res
+      .status(200)
+      .json({
+        data: posts,
+        currentPage: Number(page),
+        numberOfPages: Math.ceil(total / limit),
+      });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+
+  try {
+    const title = new RegExp(searchQuery, "i");
+
+    const posts = await PostMessage.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+    // console.log(posts);
+    res.json({ data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -20,7 +49,7 @@ export const getPost = async (req, res) => {
 
   try {
     const post = await PostMessage.findById(id);
-
+    // console.log(post);
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -54,9 +83,9 @@ export const updatePost = async (req, res) => {
 
   const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
-  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+  const update = await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
-  res.json(updatedPost);
+  res.json(update);
 };
 
 export const deletePost = async (req, res) => {
@@ -110,7 +139,7 @@ export const commentPost = async (req, res) => {
   const comment = {
     text: req.body.text,
     postBy: req.userId,
-    createdAt: new Date()
+    createdAt: new Date(),
   };
   PostMessage.findByIdAndUpdate(
     id,

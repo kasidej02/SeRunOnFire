@@ -19,7 +19,7 @@ const postSchema = mongoose.Schema({
     {
       text: String,
       postBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      createdAt: new Date()
+      createdAt: {type: Date, default:new Date()}
     },
   ],
 });

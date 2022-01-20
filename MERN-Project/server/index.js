@@ -5,7 +5,7 @@ import cors from 'cors';
 
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/user.js';
-import commentRoutes from './routes/comment.js';
+
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
-app.use('/comment',commentRoutes);
+
 
 const CONNECTION_URL = 'mongodb+srv://se:se1234@cluster0.nre6b.mongodb.net/seDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;
