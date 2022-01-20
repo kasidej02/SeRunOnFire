@@ -46,21 +46,21 @@ const Form = ({ currentId, setCurrentId }) => {
     return (
       <Paper className={classes.paper}>
         <Typography variant='h6' align='center'>
-          Please Sign In or Sign Up to create a your diary
+          Please Sign In or Sign Up to create a your review
         </Typography>
       </Paper>
     )
   }
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
       <form autoComplete="off" 
       noValidate 
       className={`${classes.root} ${classes.form}`} 
       onSubmit={handleSubmit}>
 
         <Typography variant="h6">
-          {currentId ? `Editing "${post.title}"` : 'Creating Your Diary'}
+          {currentId ? `Editing "${post.title}"` : 'Creating Your Review'}
         </Typography>
         
         <TextField name="title" 
