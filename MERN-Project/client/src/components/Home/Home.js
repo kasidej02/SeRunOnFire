@@ -95,7 +95,7 @@ const Home = () => {
                 value={tags}
                 onAdd={handleAdd}
                 onDelete={handleDelete}
-                label="Search TAgs"
+                label="Search Tags"
                 variant="outlined"
               />
               <Button

@@ -7,21 +7,22 @@ const postSchema = mongoose.Schema({
   creator: String,
   tags: [String],
   selectedFile: String,
+  
   likes: {
     type: [String],
     default: [],
   },
+
+  comments: {
+    type: [String],
+    default:[]
+  },
+
   createdAt: {
     type: Date,
     default: new Date(),
-  },
-  comments: [
-    {
-      text: String,
-      postBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      createdAt: {type: Date, default:new Date()}
-    },
-  ],
+  }
+
 });
 
 var PostMessage = mongoose.model("PostMessage", postSchema);

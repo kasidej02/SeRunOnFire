@@ -130,29 +130,19 @@ export const likePost = async (req, res) => {
 
 export const commentPost = async (req, res) => {
   const { id } = req.params;
+  const { value } = req.body;
 
-  if (!req.userId) return res.json({ message: "Unauthenticated." });
+  const post = await PostMessage.findById(id);
 
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No post with id: ${id}`);
+  post.comments.push(value);
 
-  const comment = {
-    text: req.body.text,
-    postBy: req.userId,
-    createdAt: new Date(),
-  };
-  PostMessage.findByIdAndUpdate(
-    id,
-    {
-      $push: { comments: comment },
-    },
-    { new: true }
-  )
-    .populate("comments.postBy", "_id name")
-    .exec((err, result) => {
-      if (err) return res.status(422).json({ error: err });
-      else return res.json(result);
-    });
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+
+  res.json(updatedPost);
+
+
 };
+
+
 
 export default router;
