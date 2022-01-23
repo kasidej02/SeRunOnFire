@@ -11,6 +11,7 @@ export const signin = (formData, history) => async (dispatch) => {
     
         history.push('/');
     } catch (error) {
+        alert('email or password failed')
         console.log(error);
     }
 };
@@ -23,7 +24,7 @@ export const signup = (formData, history) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-        history.push('/');
+        history.push('/posts');
     } catch (error) {
         console.log(error);
     }
