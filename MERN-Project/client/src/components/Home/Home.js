@@ -123,7 +123,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="md">
+      <Container maxWidth="md" className={classes.Home}>
         <Grid
           container
           justify="space-between"

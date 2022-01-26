@@ -47,11 +47,10 @@ const Navbar = () => {
 
 
     return (
-        <Container maxWidth="md" >
+        <Container className={classes.fixedNavbar} maxWidth="md" >
         <Box className={classes.appBar}
             position="static"
             color="inherit">
-
             <div className={classes.brandContainer}>
                 <Link to='/' className={classes.brandContainer}>
                 <img className={classes.image}
@@ -84,9 +83,11 @@ const Navbar = () => {
                             {user?.result.name}
                         </Typography>
 
-                        <Button variant='contained' 
-                        className={classes.logout} 
-                        color='secondary' 
+                        <Button 
+                        style={{margin:'15px'}}
+                        // variant='contained' 
+                        className={classes.button} 
+                        // color='secondary' 
                         onClick={logout}>
                             Log out
                         </Button>

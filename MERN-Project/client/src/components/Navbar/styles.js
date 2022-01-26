@@ -4,7 +4,8 @@ import { deepPurple } from '@material-ui/core/colors';
 export default makeStyles((theme) => ({
   appBar: {
     // borderRadius: 15,
-    marginBottom: '30px',
+    // background: '#000',
+    marginBottom: '0px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -29,10 +30,11 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '0px',
+    width: '250px',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     },
+    padding:'0px',
   },
   profile: {
     display: 'flex',
@@ -45,13 +47,15 @@ export default makeStyles((theme) => ({
       justifyContent: 'center',
     },
   },
-  logout: {
-    marginLeft: '20px',
-  },
   userName: {
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    // textAlign: 'right',
+    fontSize: '10px',
+    fontWeight:'700',
+    margin:'15px',
   },
   brandContainer: {
     display: 'flex',
@@ -74,4 +78,13 @@ export default makeStyles((theme) => ({
       color:'#fff',
     }
   },
+  fixedNavbar:{
+    // marginTop: '24px',
+    background: '#ffff',
+    position: 'fixed',
+    width: '100%',
+    left: '50%',
+    zIndex: '99',
+    transform:'translate(-50%,0%)',
+  }
 }));

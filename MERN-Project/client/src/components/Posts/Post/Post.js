@@ -11,12 +11,14 @@ import {
   Avatar,
   CardHeader,
   IconButton,
-  
+  Grid,
+  Box,
+  Paper,
 } from "@material-ui/core/";
 // import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 // import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import { useDispatch } from "react-redux";
@@ -25,22 +27,22 @@ import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { getPost, likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
+import Divider from "@material-ui/core/Divider";
 
 //implement
 // import Avatar from '@mui/material/Avatar';
 // import CardHeader from '@mui/material/CardHeader';
 // import { red } from '@mui/material/colors';
 // import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+// import './styles.css';
 
 const TextTypography = withStyles({
   root: {
     // color: "#990000",
     // fontFamily: "IBM Plex Sans Thai, sans-serif"
-  }
+  },
 })(Typography);
-
-
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
@@ -79,45 +81,20 @@ const Post = ({ post, setCurrentId }) => {
   const openPost = () => history.push(`/posts/${post._id}`);
 
   return (
-    <Card className={classes.card} raised elevation={6}>
+    <Card className={classes.card} raised elevation={4}>
       
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: '#000' }} aria-label="recipe" src={user?.result.imageUrl}> 
-            
-          </Avatar>
-  //ค้างใส่รูป
-        }
-        action={
-          (user?.result?.googleId === post?.creator ||
-            user?.result?._id === post?.creator) && (
-            <div className={classes.overlay2}>
-              <IconButton
-                aria-label="settings"
-                onClick={() => setCurrentId(post._id)}
-                style={{ color: "gray" }}
-                // size="small"
-              >
-                <MoreVertIcon/>
-              </IconButton>
-            </div>
-          )
-          // <IconButton aria-label="settings">
-            
-          // </IconButton>
-        }
-        title={post.name} 
-        subheader={moment(post.createdAt).fromNow()}
-      />
       <ButtonBase className={classes.cardAction} onClick={openPost}>
-      <CardMedia
-        className={classes.media}
-        image={
-          post.selectedFile ||
-          "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-        }
-      />   
-      
+        <CardMedia
+          // className='box-text'
+          className={classes.media}
+          // className='img-hover-zoom'
+          image={
+            post.selectedFile ||
+            "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+          }
+        />
+        
+
         <Typography
           className={classes.title}
           // gutterBottom
@@ -125,22 +102,59 @@ const Post = ({ post, setCurrentId }) => {
           component="h2"
         >
           {post.title}
-        </Typography>  
-        <CardContent style={{ display: "flex" }}>
-          <Typography className={classes.typography} variant="body2" color="textSecondary" component="p">
+        </Typography>
+        <CardContent style={{ display: "flex", padding: "5px 16px 0px 16px" }}>
+          <Typography
+            className={classes.typography}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
             {post.message}
           </Typography>
         </CardContent>
         <div className={classes.details}>
-          <Typography className={classes.typography} variant="body2" color="textSecondary" component="h2" >
+          <Typography
+            className={classes.tag}
+            variant="body2"
+            color="textSecondary"
+            component="h2"
+          >
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
         </div>
-        
+
+        <Grid container spacing={3}>
+        <Grid item xs className={classes.grid}>
+        <Typography className={classes.by} color='textSecondary'>BY</Typography>
+        <Typography className={classes.ownerPost}>{post.name}</Typography>
+        </Grid>
+        <Grid item xs justifyContent="right">
+        <Typography className={classes.time} color='textSecondary'>{moment(post.createdAt).fromNow()} </Typography>
+        </Grid>
+      </Grid>
+
+          <Divider variant="middle" />
       </ButtonBase>
+      <CardHeader style={{padding:'0px'}}
+          action={
+            (user?.result?.googleId === post?.creator ||
+              user?.result?._id === post?.creator) && (
+              <div className={classes.overlay2}>
+                <IconButton
+                  aria-label="settings"
+                  onClick={() => setCurrentId(post._id)}
+                  style={{ color: "gray" }}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              </div>
+            )
+          }
+        />
       <CardActions className={classes.cardActions}>
         <IconButton
-        className={classes.likeButton}
+          className={classes.likeButton}
           size="small"
           disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
@@ -151,11 +165,11 @@ const Post = ({ post, setCurrentId }) => {
           user?.result?._id === post?.creator) && (
           //เอา save มาแทนที่
           <IconButton
-          className={classes.deleteButton}
+            className={classes.deleteButton}
             size="small"
             onClick={() => dispatch(deletePost(post._id))}
           >
-            <DeleteIcon fontSize="small" /> 
+            <DeleteIcon fontSize="small" />
           </IconButton>
         )}
       </CardActions>

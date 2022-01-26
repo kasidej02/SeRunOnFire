@@ -55,5 +55,8 @@ export default makeStyles((theme) => ({
       backgroundColor: '#F14A16',
       color: '#fff',
     }
+  },
+  auth:{
+    paddingTop: '100px',
   }
 }));
