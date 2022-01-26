@@ -9,7 +9,7 @@ import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
-
+    
   return (
     <BrowserRouter>
       <div maxWidth="xl" padding='0'>

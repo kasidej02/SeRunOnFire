@@ -9,16 +9,17 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '4px 50px',
+    padding: '0px 0px',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
   },
   heading: {
     // color: theme.palette.primary.main,
+    // boxShadow: '0',
     color: 'black',
     textDecoration: 'none',
-    fontSize: '2em',
+    fontSize: '1em',
     fontWeight: 300,
   },
   image: {
@@ -28,14 +29,14 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    width: '0px',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     },
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center', //space-between
     width: '400px',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
@@ -59,5 +60,18 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  button: {
+    fontSize: '2px',
+    padding: '0px 10px 0px 10px',
+    border: '1px solid #F14A16',
+    // borderColor: '#f14a16',
+    // borderColor: '#F14A16',
+    borderRadius: 100,
+    color: '#F14A16',
+    "&:hover":{
+      backgroundColor: '#F14A16',
+      color:'#fff',
+    }
   },
 }));

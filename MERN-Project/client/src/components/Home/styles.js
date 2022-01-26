@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+
 export default makeStyles((theme) => ({
   appBarSearch: {
     borderRadius: 4,
@@ -17,4 +18,19 @@ export default makeStyles((theme) => ({
       flexDirection: 'column-reverse',
     },
   },
-}));
+  searchButton:{
+    border: '1px solid #F14A16',
+    // borderColor: '#f14a16',
+    // borderColor: '#F14A16',
+    borderRadius: 100,
+    color: '#F14A16',
+    "&:hover":{
+      backgroundColor: '#F14A16',
+      color: '#fff',
+    }
+  },
+  // inputField:{
+  //   "&:hover": "green",
+  // },
+  }));
+

@@ -8,17 +8,39 @@ import {
   Typography,
   ButtonBase,
   CardActionArea,
+  Avatar,
+  CardHeader,
+  IconButton,
+  
 } from "@material-ui/core/";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+// import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+// import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-
+import { withStyles } from "@material-ui/core/styles";
 import { getPost, likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
+
+//implement
+// import Avatar from '@mui/material/Avatar';
+// import CardHeader from '@mui/material/CardHeader';
+// import { red } from '@mui/material/colors';
+// import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+const TextTypography = withStyles({
+  root: {
+    // color: "#990000",
+    // fontFamily: "IBM Plex Sans Thai, sans-serif"
+  }
+})(Typography);
+
+
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
@@ -32,7 +54,7 @@ const Post = ({ post, setCurrentId }) => {
         (like) => like === (user?.result?.googleId || user?.result?._id)
       ) ? (
         <>
-          <ThumbUpAltIcon fontSize="small" />
+          <FavoriteIcon fontSize="small" />
           &nbsp;
           {post.likes.length > 2
             ? `You and ${post.likes.length - 1} others`
@@ -40,7 +62,7 @@ const Post = ({ post, setCurrentId }) => {
         </>
       ) : (
         <>
-          <ThumbUpAltOutlined fontSize="small" />
+          <FavoriteIcon fontSize="small" />
           &nbsp;{post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
         </>
       );
@@ -48,8 +70,8 @@ const Post = ({ post, setCurrentId }) => {
 
     return (
       <>
-        <ThumbUpAltOutlined fontSize="small" />
-        &nbsp;Like
+        <FavoriteBorderIcon fontSize="small" />
+        &nbsp;
       </>
     );
   };
@@ -58,70 +80,83 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={classes.card} raised elevation={6}>
+      
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: '#000' }} aria-label="recipe" src={user?.result.imageUrl}> 
+            
+          </Avatar>
+  //ค้างใส่รูป
+        }
+        action={
+          (user?.result?.googleId === post?.creator ||
+            user?.result?._id === post?.creator) && (
+            <div className={classes.overlay2}>
+              <IconButton
+                aria-label="settings"
+                onClick={() => setCurrentId(post._id)}
+                style={{ color: "gray" }}
+                // size="small"
+              >
+                <MoreVertIcon/>
+              </IconButton>
+            </div>
+          )
+          // <IconButton aria-label="settings">
+            
+          // </IconButton>
+        }
+        title={post.name} 
+        subheader={moment(post.createdAt).fromNow()}
+      />
+      <ButtonBase className={classes.cardAction} onClick={openPost}>
       <CardMedia
         className={classes.media}
         image={
           post.selectedFile ||
           "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
         }
-        title={post.title}
-      />
-      <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
-      {(user?.result?.googleId === post?.creator ||
-        user?.result?._id === post?.creator) && (
-        <div className={classes.overlay2}>
-          <Button
-            onClick={() => setCurrentId(post._id)}
-            style={{ color: "white" }}
-            size="small"
-          >
-            <MoreHorizIcon fontSize="default" />
-          </Button>
-        </div>
-      )}
-      <ButtonBase className={classes.cardAction} onClick={openPost}>
-        <div className={classes.details}>
-          <Typography variant="body2" color="textSecondary" component="h2">
-            {post.tags.map((tag) => `#${tag} `)}
-          </Typography>
-        </div>
+      />   
+      
         <Typography
           className={classes.title}
-          gutterBottom
+          // gutterBottom
           variant="h5"
           component="h2"
         >
           {post.title}
-        </Typography>
+        </Typography>  
         <CardContent style={{ display: "flex" }}>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography className={classes.typography} variant="body2" color="textSecondary" component="p">
             {post.message}
           </Typography>
         </CardContent>
+        <div className={classes.details}>
+          <Typography className={classes.typography} variant="body2" color="textSecondary" component="h2" >
+            {post.tags.map((tag) => `#${tag} `)}
+          </Typography>
+        </div>
+        
       </ButtonBase>
       <CardActions className={classes.cardActions}>
-        <Button
+        <IconButton
+        className={classes.likeButton}
           size="small"
-          color="primary"
           disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
         >
           <Likes />
-        </Button>
+        </IconButton>
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
-          <Button
+          //เอา save มาแทนที่
+          <IconButton
+          className={classes.deleteButton}
             size="small"
-            color="secondary"
             onClick={() => dispatch(deletePost(post._id))}
           >
-            <DeleteIcon fontSize="small" /> Delete
-          </Button>
+            <DeleteIcon fontSize="small" /> 
+          </IconButton>
         )}
       </CardActions>
     </Card>

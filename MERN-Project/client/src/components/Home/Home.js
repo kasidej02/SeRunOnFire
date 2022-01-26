@@ -7,6 +7,8 @@ import {
   AppBar,
   TextField,
   Button,
+  InputBase,
+  withStyles,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -19,10 +21,61 @@ import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 
 import useStyles from "./styles";
+import "../../index.css";
+// import "./styles.scss";
+// import { alpha, styled } from "@material-ui/core/styles";
+// import { alpha, styled } from '@mui/material/styles';
+import Swal from 'sweetalert2';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
+
+//Textfield color custom
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#f14a16',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#f14a16',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        // borderColor: 'black',
+      },
+      '&:hover fieldset': {
+        borderColor: '#f14a16',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#f14a16',
+      },
+    },
+  },
+})(TextField);
+
+const CssChipInput = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#f14a16',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#f14a16',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        // borderColor: 'black',
+      },
+      '&:hover fieldset': {
+        borderColor: '#f14a16',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#f14a16',
+      },
+    },
+  },
+})(ChipInput);
+
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -40,6 +93,12 @@ const Home = () => {
   //   }, [currentId, dispatch]);
 
   const searchPost = () => {
+    Swal.fire({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      icon: 'error',
+      confirmButtonText: 'Cool'
+    })
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       history.push(
@@ -64,7 +123,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container maxWidth="md">
         <Grid
           container
           justify="space-between"
@@ -81,7 +140,10 @@ const Home = () => {
               position="static"
               color="inherit"
             >
-              <TextField
+              
+              <CssTextField
+                className="inputRounded"
+                size="small"
                 name="search"
                 variant="outlined"
                 label="Search review"
@@ -90,7 +152,10 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <ChipInput
+
+              <CssChipInput
+                className="inputRounded"
+                id="custom-css-outlined-input"
                 style={{ margin: "10px 0" }}
                 value={tags}
                 onAdd={handleAdd}
@@ -98,17 +163,20 @@ const Home = () => {
                 label="Search Tags"
                 variant="outlined"
               />
+
               <Button
                 onClick={searchPost}
                 className={classes.searchButton}
-                variant="contained"
-                color="primary"
+                // className='buttons'
+                // className='button button--calypso'
+                // variant="contained"
+                // color="primary"
               >
                 Search
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            {(!searchQuery && !tags.length )&& (
+            {!searchQuery && !tags.length && (
               <Paper elevation={6} className={classes.pagination}>
                 <Pagination page={page} />
               </Paper>
