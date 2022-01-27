@@ -12,6 +12,7 @@ body {
 .inputRounded .MuiOutlinedInput-root {
     border-radius: 100px;
     font-size: small;
+    /* padding: 0px 300px; */
     /* border: '#f09'; */
     /* color: #f14a16; */
     /* border: 1px solid coral; */

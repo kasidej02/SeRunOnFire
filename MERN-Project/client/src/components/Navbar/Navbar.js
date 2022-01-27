@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Avatar, Typography, Toolbar, Button, Box, Container } from '@material-ui/core'
+import { AppBar, Avatar, Typography, Toolbar, Button, Box, Container,CardMedia } from '@material-ui/core'
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo2.png';
+// import logo2 from '../../images/Asset1.png';
+
 import "../../index.css";
 import Swal from 'sweetalert2';
+import "./styles.scss"
+// import { borders } from '@material-ui/system';
+
 // import SearchBar from "material-ui-search-bar";
 
 // const Swal = require('sweetalert2');
@@ -47,8 +52,9 @@ const Navbar = () => {
 
 
     return (
-        <Container className={classes.fixedNavbar} maxWidth="md" >
+        <Container className={classes.fixedNavbar} maxWidth="xl" >
         <Box className={classes.appBar}
+        borderBottom={1}
             position="static"
             color="inherit">
             <div className={classes.brandContainer}>
@@ -59,12 +65,24 @@ const Navbar = () => {
                     height="60" />
                 </Link>
             </div>
+            
+            {/* <div className={classes.brandContainer}>
+                <Link to='/' className={classes.brandContainer}>
+                <img className={classes.image}
+                    src={logo2}
+                    alt="logo"
+                    height="60" />
+                </Link>
+            </div> */}
+            {/* <div className="slideshow-text"> */}
+            {/* <div class="item">Canyon</div> */}
             <Typography component={Link} to='/' className={classes.heading}
                     variant="h6"
                     align="center"
                     justify='center'>
-                     Aep-Seap Aep-Bok
+                     AEPSAEP AEPBOK.
                 </Typography>
+                {/* </div> */}
             {/* <SearchBar
           value={searched}
           onChange={(searchVal) => requestSearch(searchVal)}

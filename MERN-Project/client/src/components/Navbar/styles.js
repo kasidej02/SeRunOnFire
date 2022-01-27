@@ -20,8 +20,9 @@ export default makeStyles((theme) => ({
     // boxShadow: '0',
     color: 'black',
     textDecoration: 'none',
-    fontSize: '1em',
-    fontWeight: 300,
+    fontSize: '1.5em',
+    fontWeight: 700,
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
   },
   image: {
     margin: '10px',
@@ -80,11 +81,14 @@ export default makeStyles((theme) => ({
   },
   fixedNavbar:{
     // marginTop: '24px',
-    background: '#ffff',
+    // borderBottom: '1',
+    border:'0px 0px 1px 0px solid #000',
+    background: '#f3f3f3',
     position: 'fixed',
     width: '100%',
     left: '50%',
     zIndex: '99',
     transform:'translate(-50%,0%)',
-  }
+  },
+ 
 }));

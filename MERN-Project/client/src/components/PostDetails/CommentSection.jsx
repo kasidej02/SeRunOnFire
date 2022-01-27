@@ -25,7 +25,7 @@ const CommentSection = ({ post }) => {
     };
 
     return (
-        <div>
+        <div >
             <div className={classes.commentsOuterContainer}>
                 <div className={classes.commentsInnerContainer}>
                     <Typography gutterBottom variant="h6" >Comments</Typography>

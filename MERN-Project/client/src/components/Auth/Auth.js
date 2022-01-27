@@ -7,6 +7,8 @@ import {
   Typography,
   Container,
   IconButton,
+  CardMedia,
+  Box,
 } from "@material-ui/core";
 import { GoogleLogin } from "react-google-login";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -18,6 +20,12 @@ import Input from "./Input";
 import Icon from "./icon";
 import { AUTH } from "../../constants/actionTypes";
 import { signin, signup } from "../../actions/auth";
+import logo from '../../images/picas.png';
+import Slide from '@material-ui/core/Slide';
+import "./styles.css";
+
+
+
 
 const initialState = {
   firstName: "",
@@ -26,6 +34,8 @@ const initialState = {
   password: "",
   confirmPassword: "",
 };
+
+
 
 const SignUp = () => {
   const classes = useStyles();
@@ -73,8 +83,23 @@ const SignUp = () => {
     alert("Google Sign In was UnSuccessful. Try Again");
   };
 
+  
+
   return (
-    <Container component="main" maxWidth="xs" className={classes.auth}>
+    <Container component="main" maxWidth="xl" className={classes.auth}>
+      <Grid container spacing={0} style={{display:'flex'}}>
+      <Grid item xs className={classes.pic}>
+      {/* <Container style={{marginLeft:'-60px'}}> */}
+        <CardMedia maxWidth='300'
+          // className='box-text'
+          className={`${classes.media} banner-slide`}
+          // className='img-hover-zoom'
+          component='img'
+          image={logo}
+       />
+       {/* </Container> */}
+        </Grid>
+        <Grid item xs style={{backgroundColor:'#fff',maxHeight:'550px'}}>
       <Paper className={classes.paper} elevation={3}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -149,7 +174,7 @@ const SignUp = () => {
           <GoogleLogin
             clientId="1001634285-g1pfma2ph95ol7km97ub214ps5s2o31d.apps.googleusercontent.com"
             render={(renderProps) => (
-              <IconButton
+              <Button
                 className={classes.googleButton}
                 // color="primary"
                 // fullWidth
@@ -167,8 +192,9 @@ const SignUp = () => {
                     d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"
                   />
                 </svg>
-                
-              </IconButton>
+                &nbsp;
+                 GOOGLE SIGN IN
+              </Button>
             )}
             onSuccess={googleSuccess}
             onFailure={googleFailure}
@@ -190,6 +216,8 @@ const SignUp = () => {
           </Grid>
         </form>
       </Paper>
+      </Grid>
+      </Grid>
     </Container>
   );
 };

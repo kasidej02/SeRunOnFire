@@ -2,11 +2,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    // marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
+    // padding: '0px 300px',
+    margin: '0 auto',
+    maxWidth:'500px',
+    // padding: '100px 0px 0 0',
+    // padding: '0 300px',
+    boxShadow: 'none',
+    borderRadius: '0',
+    height:'550px',
+    // paddingTop: '50px'
+    justifyContent:'center',
   },
   root: {
     '& .MuiTextField-root': {
@@ -42,6 +52,10 @@ export default makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     border: '1px solid #f14a16',
     alignItems: 'center',
+    // boxShadow:'10px',
+    borderRadius:'100px',
+    padding:'5px 10px',
+    color:'#f14a16',
    
   },
   signupButton:{
@@ -57,6 +71,33 @@ export default makeStyles((theme) => ({
     }
   },
   auth:{
-    paddingTop: '100px',
-  }
+    padding: '80px 0px 0px 0px',
+  },
+  pic:{
+    // width: '1087px'
+    maxWidth:'300px',
+    // height:538,
+    backgroundColor: '#fff',
+    // overflow:'hidden'
+    // height: '200px',
+  },
+  media: {
+    // scale: '50%',
+    position: 'absolute',
+    // left:'-150px',
+    height: 550,
+    width: 300,
+    display: 'flex',
+    margin:'0px 0px 0px 0px',
+    // background:'#000',
+    // paddingTop: '80%',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // backgroundBlendMode: 'darken',
+    "&hover": {
+      // transform: "scale(1.5)",
+    // backgroundBlendMode: 'darken',
+    // color: "#f4a",
+    }
+  },
+
 }));

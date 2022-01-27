@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   media: {
-    borderRadius: '20px',
+    borderRadius: '0px',
     objectFit: 'cover',
     width: '100%',
     maxHeight: '600px',
@@ -17,12 +17,12 @@ export default makeStyles((theme) => ({
     },
   },
   section: {
-    borderRadius: '20px',
-    margin: '10px',
+    borderRadius: '0px',
+    margin: '50px',
     flex: 1,
   },
   imageSection: {
-    marginLeft: '20px',
+    marginLeft: '0px',
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
@@ -51,5 +51,30 @@ export default makeStyles((theme) => ({
     height: '200px',
     overflowY:'auto',
     marginRight: '30px', 
+  },
+  title:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    fontWeight:'700',
+    fontSize: '1.5em',
+  },
+  tag:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    fontWeight:'500',
+    fontSize: '15px',
+  },
+  details:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    fontWeight:'500',
+    fontSize: '15px',
+  },
+  createdby:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    fontWeight:'500',
+    fontSize: '15px',
+  },
+  createdAt:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    fontWeight:'500',
+    fontSize: '10px',
   }
 }));

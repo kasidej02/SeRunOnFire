@@ -26,6 +26,8 @@ import "../../index.css";
 // import { alpha, styled } from "@material-ui/core/styles";
 // import { alpha, styled } from '@mui/material/styles';
 import Swal from 'sweetalert2';
+import './styles.scss';
+
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -123,7 +125,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="md" className={classes.Home}>
+      <Container maxWidth="xl" className={classes.Home}>
         <Grid
           container
           justify="space-between"
@@ -164,6 +166,17 @@ const Home = () => {
                 variant="outlined"
               />
 
+<button className="blob-btn">
+    Blob Button
+    <span className="blob-btn__inner">
+      <span className="blob-btn__blobs">
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
               <Button
                 onClick={searchPost}
                 className={classes.searchButton}

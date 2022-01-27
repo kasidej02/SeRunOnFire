@@ -35,7 +35,7 @@ import Divider from "@material-ui/core/Divider";
 // import { red } from '@mui/material/colors';
 // import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-// import './styles.css';
+import './styles.css';
 
 const TextTypography = withStyles({
   root: {
@@ -84,16 +84,21 @@ const Post = ({ post, setCurrentId }) => {
     <Card className={classes.card} raised elevation={4}>
       
       <ButtonBase className={classes.cardAction} onClick={openPost}>
+        <CardMedia style={{height:'337px',overflow:'hidden'}}>
         <CardMedia
           // className='box-text'
-          className={classes.media}
+          className={`${classes.media} hover-media`}
+
           // className='img-hover-zoom'
-          image={
-            post.selectedFile ||
-            "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-          }
+          // image={
+          //   post.selectedFile ||
+          //   "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+          // }
+          
+          image={post.selectedFile ||
+             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"}
         />
-        
+        </CardMedia>
 
         <Typography
           className={classes.title}

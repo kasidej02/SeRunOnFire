@@ -23,7 +23,7 @@ export default makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    borderRadius: '5px',
+    borderRadius: '0px',
     height: '100%',
     position: 'relative',
     boxShadow:'none',
