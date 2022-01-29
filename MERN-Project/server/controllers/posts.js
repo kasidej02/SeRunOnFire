@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import PostMessage from "../models/postMessage.js";
+import User from "../models/user.js";
 
 const router = express.Router();
 
@@ -16,13 +17,11 @@ export const getPosts = async (req, res) => {
       .limit(limit)
       .skip(startIndex);
 
-    res
-      .status(200)
-      .json({
-        data: posts,
-        currentPage: Number(page),
-        numberOfPages: Math.ceil(total / limit),
-      });
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / limit),
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -83,7 +82,9 @@ export const updatePost = async (req, res) => {
 
   const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
-  const update = await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+  const update = await PostMessage.findByIdAndUpdate(id, updatedPost, {
+    new: true,
+  });
 
   res.json(update);
 };
@@ -136,13 +137,58 @@ export const commentPost = async (req, res) => {
 
   post.comments.push(value);
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
 
   res.json(updatedPost);
-
-
 };
 
+export const savePost = async (req, res) => {
+  const { id } = req.params;
+  // const { userId } = req.body;
 
+  if (!req.userId) return res.json({ message: "Unauthenticated." });
+
+  // if (!mongoose.Types.ObjectId.isValid(id))
+  //   return res.status(404).send(`No post with id: ${id}`);
+
+  const user = await User.findById(req.userId);
+  const saved = user.saved.find((saved) => saved == id) ? true : false;
+  if (!saved) {
+    user.saved.push(id);
+    const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
+      new: true,
+    });
+
+    return res.json(updatedUser);
+  } else {
+    return res.json({ message: "You had saved this post" });
+  }
+};
+
+export const getSavedPost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated." });
+  // const { userId } = req.body;
+  try {
+    const user = await User.findById(req.userId);
+
+    let posts = await PostMessage.find({_id: {$in: user.saved}})
+    // console.log(posts);
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const deleteSavedPost = async (req, res) => {
+  const { postId , userId} = req.query;
+
+  const user = await User.findById(userId)
+  console.log(user.saved);
+  const update = user.saved.filter((post) => post != postId)
+  const updatedUser = await User.findByIdAndUpdate(userId,{saved: update},{new:true})
+  res.json(updatedUser);
+};
 
 export default router;
