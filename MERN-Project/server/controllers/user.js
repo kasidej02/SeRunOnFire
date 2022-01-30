@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import express from "express";
 
 import User from "../models/user.js";
+import PostMessage from "../models/postMessage.js"
 
 const router = express.Router();
 const secret = "test";
@@ -33,7 +34,7 @@ export const signin = async (req, res) => {
         id: existingUser._id,
       },
       "test",
-      { expiresIn: "1h" }
+      { expiresIn: "3h" }
     );
 
     res.status(200).json({ result: existingUser, token });
@@ -42,7 +43,7 @@ export const signin = async (req, res) => {
   }
 };
 
- //bug
+
 export const signup = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
  
@@ -65,7 +66,7 @@ export const signup = async (req, res) => {
     });
 
     const token = jwt.sign({ email: result.email, id: result._id }, secret, {
-      expiresIn: "1h",
+      expiresIn: "3h",
     });
     console.log(result);
     res.status(200).json({ result, token });
@@ -99,6 +100,20 @@ export const deleteUser = async (req, res) => {
   await User.findByIdAndRemove(id);
 
   res.json({ message: "User deleted successfully." });
+};
+
+export const getSavedPost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated." });
+  // const { userId } = req.body;
+  try {
+    const user = await User.findById(req.userId);
+
+    let posts = await PostMessage.find({_id: {$in: user.saved}})
+    // console.log(posts);
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
 
 export default router;

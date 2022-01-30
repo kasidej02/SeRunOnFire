@@ -9,6 +9,7 @@ import {
   DELETE,
   LIKE,
   COMMENT,
+  SAVE
 } from "../constants/actionTypes";
 
 export default (state = {isLoading:true,posts:[]}, action) => {
@@ -43,8 +44,6 @@ export default (state = {isLoading:true,posts:[]}, action) => {
         ...state,
         posts: state.posts.map((post) => {
           if (post._id === action.payload._id) return action.payload;
-          
-
           return post;  
         })
       };
@@ -55,7 +54,13 @@ export default (state = {isLoading:true,posts:[]}, action) => {
         post._id === action.payload._id ? action.payload : post
       )}
     case DELETE:
-      return {...state, posts: state.posts.filter((post) => post._id !== action.payload)}
+      return {...state, posts: state.posts.filter((post) => post._id !== action.payload)} 
+    case SAVE:
+      console.log(action.payload.post._id);
+      // localStorage.setItem('profile',JSON.stringify({...action?.user}))
+      return {...state, posts: state.posts.map((post) =>
+        post._id === action.payload._id ? action.payload : post
+      )}
     default:
       return state;
   }

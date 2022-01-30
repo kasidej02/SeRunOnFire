@@ -5,18 +5,28 @@ import FileBase from 'react-file-base64';
 import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
 import "../../index.css";
+import { useLocation, useParams,useHistory } from 'react-router-dom';
 
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({currentId,setCurrentId}) => {
   const [postData, setPostData] = useState({  title: '',
    message: '', 
    tags: '', 
    selectedFile: '' });
-
+  //  const {currentId} = useParams()
+   console.log(currentId);
+  // const [currentId,setCurrentId] = useState(0)
+  // const params = useQuery()
+  //  console.log(params.get("currentId"));
+  //  function useQuery() {
+  //   return new URLSearchParams(useLocation().search);
+  // }
+  // setCurrentId(params.get("currentId"))
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useHistory();
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -33,14 +43,24 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // if(postData.title==''){
+    //   return alert("Please enter the title")
+    // }
+    // if(postData.message==''){
+    //   return alert("Please enter the massage")
+    // }
+    // if(postData.selectedFile==''){
+    //   return alert("Please select the picture")
+    // }
     if (currentId === 0) {
       dispatch(createPost({ ...postData, name: user?.result?.name}));
+      console.log(postData);
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
       clear();
     }
+    history.push('/')
   };
 
   if(!user?.result?.name) {
@@ -63,17 +83,17 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography variant="h6">
           {currentId ? `Editing "${post.title}"` : 'Creating Your Review'}
         </Typography>
-
+        
         <TextField name="title" 
         size='small'
         className="inputRounded"
-        variant="outlined" label="Title" 
+        variant="outlined" label="Title*" 
         fullWidth value={postData.title} 
         onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
 
         <TextField name="message" 
         className="inputMessageRounded"
-        variant="outlined" label="Message" 
+        variant="outlined" label="Message*" 
         fullWidth multiline rows={4} value={postData.message} 
         onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         
@@ -98,7 +118,7 @@ const Form = ({ currentId, setCurrentId }) => {
           // color="primary" 
           size="small" 
           type="submit" 
-          >POST
+          >{currentId ? 'UPDATE' : 'POST'}
         </Button>
         </Grid>
         <Grid item xs={6} md={4}>

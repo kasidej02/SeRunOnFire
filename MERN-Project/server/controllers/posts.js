@@ -152,32 +152,19 @@ export const savePost = async (req, res) => {
 
   // if (!mongoose.Types.ObjectId.isValid(id))
   //   return res.status(404).send(`No post with id: ${id}`);
-
+  const post = await PostMessage.findById(id);
   const user = await User.findById(req.userId);
   const saved = user.saved.find((saved) => saved == id) ? true : false;
   if (!saved) {
-    user.saved.push(id);
+    // user.saved.push(id);
     const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
       new: true,
     });
-
-    return res.json(updatedUser);
+    // const data = new ObjectId({token:token,result:updatedUser})
+    res.json({post,result:updatedUser});
+    
   } else {
     return res.json({ message: "You had saved this post" });
-  }
-};
-
-export const getSavedPost = async (req, res) => {
-  if (!req.userId) return res.json({ message: "Unauthenticated." });
-  // const { userId } = req.body;
-  try {
-    const user = await User.findById(req.userId);
-
-    let posts = await PostMessage.find({_id: {$in: user.saved}})
-    // console.log(posts);
-    res.json({ data: posts });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
   }
 };
 

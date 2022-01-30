@@ -15,7 +15,8 @@ import {
   Button
 } from "@material-ui/core/";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-// import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import Bookmark from '@material-ui/icons/BookmarkBorder';
+import { amber } from '@mui/material/colors';
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -25,7 +26,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { likePost, deletePost } from "../../../actions/posts";
+import { likePost, deletePost, savePost } from "../../../actions/posts";
 import useStyles from "./styles";
 import Divider from "@material-ui/core/Divider";
 
@@ -215,17 +216,17 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </IconButton>
-        {/* {(user?.result?.googleId === post?.creator ||
-          user?.result?._id === post?.creator) && (
+        {(user?.result?.googleId !== post?.creator ||
+          user?.result?._id !== post?.creator) &&user?.result&& (
           //เอา save มาแทนที่
           <IconButton
-            className={classes.deleteButton}
-            size="small"
-            onClick={() => dispatch(deletePost(post._id))}
-          >
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        )} */}
+                aria-label="settings"
+                style={{ color: amber[400] }}
+                onClick={() => dispatch(savePost(post._id))}
+              >
+                <Bookmark />
+              </IconButton>
+        )}
       </CardActions>
     </Card>
   );

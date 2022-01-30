@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, FETCH_BY_SEARCH,FETCH_ALL,FETCH_POST, CREATE, UPDATE, DELETE, LIKE, COMMENT } from '../constants/actionTypes';
+import { START_LOADING, END_LOADING, FETCH_BY_SEARCH,FETCH_ALL,FETCH_POST, CREATE, UPDATE, DELETE, LIKE, COMMENT, SAVE } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const getPost = (id) => async (dispatch) => {
@@ -41,10 +41,12 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 export const createPost = (post) => async (dispatch) => {
   try {
     // dispatch({ type: START_LOADING});
+    
     const { data } = await api.createPost(post);
-
+    // console.log(data);
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
+    // console.log("err");
     console.log(error.message);
   }
 };
@@ -92,3 +94,13 @@ export const deletePost = (id) => async (dispatch) => {
   }
 };
 
+export const savePost = (id) => async (dispatch) => {
+  try {
+    const { data} = await api.savePost(id);
+    console.log(data);
+    if(data.message) alert("You have been saved")
+    else dispatch({ type: SAVE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

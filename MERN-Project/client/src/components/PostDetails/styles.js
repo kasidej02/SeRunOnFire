@@ -15,6 +15,7 @@ export default makeStyles((theme) => ({
       flexWrap: 'wrap',
       flexDirection: 'column',
     },
+    marginTop:'100px'
   },
   section: {
     borderRadius: '0px',

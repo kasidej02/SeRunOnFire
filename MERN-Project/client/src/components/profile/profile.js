@@ -18,7 +18,7 @@ import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Pagination from "../Pagination";
 
 import Posts from "../Posts/Posts";
-import Form from "../Form/Form";
+import ProfileDetail from "./profileDetail";
 
 import useStyles from "./styles";
 import "../../index.css";
@@ -26,7 +26,7 @@ import "../../index.css";
 // import { alpha, styled } from "@material-ui/core/styles";
 // import { alpha, styled } from '@mui/material/styles';
 import Swal from 'sweetalert2';
-import './styles.scss';
+// import './styles.scss';
 
 
 function useQuery() {
@@ -79,7 +79,7 @@ const CssChipInput = withStyles({
 })(ChipInput);
 
 
-const Home = () => {
+const Profile = () => {
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
   const query = useQuery();
@@ -89,9 +89,7 @@ const Home = () => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const [tags, setTag] = useState([]);
-  const [click,setClick] = useState('');
-  const user = JSON.parse(localStorage.getItem('profile'));
-  // console.log(user);
+
   //   useEffect(() => {
   //     dispatch(getPosts());
   //   }, [currentId, dispatch]);
@@ -168,17 +166,6 @@ const Home = () => {
                 variant="outlined"
               />
 
-{/* <button className="blob-btn">
-    Blob Button
-    <span className="blob-btn__inner">
-      <span className="blob-btn__blobs">
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-      </span>
-    </span>
-  </button> */}
               <Button
                 onClick={searchPost}
                 className={classes.searchButton}
@@ -190,10 +177,7 @@ const Home = () => {
                 Search
               </Button>
             </AppBar>
-            {/* <Button onClick={() => history.push(`/posts/create?currentId=${currentId}&setCurrentId=${setCurrentId}`)}> + Review</Button> */}
-            {/* <Button onClick={() => history.push(`/posts/create/${currentId}`)}> + Review</Button> */}
-            {user?.result?.name&&<Button onClick={() => setClick(1)}>+Review</Button>}
-            {click&&<Form currentId={currentId} setCurrentId={setCurrentId} />}
+            <ProfileDetail />
             {!searchQuery && !tags.length && (
               <Paper elevation={6} className={classes.pagination}>
                 <Pagination page={page} />
@@ -206,4 +190,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;

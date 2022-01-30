@@ -67,7 +67,7 @@ export default makeStyles((theme) => ({
     backgroundColor: deepPurple[500],
   },
   button: {
-    fontSize: '2px',
+    fontSize: '10px',
     padding: '0px 10px 0px 10px',
     border: '1px solid #F14A16',
     // borderColor: '#f14a16',
