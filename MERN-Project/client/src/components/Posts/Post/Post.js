@@ -4,17 +4,17 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
   ButtonBase,
-  CardActionArea,
-  Avatar,
   CardHeader,
   IconButton,
   Grid,
-  Box,
-  Paper,
+  Menu,
+  MenuItem,
+  Fade,
+  Button
 } from "@material-ui/core/";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -25,7 +25,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { getPost, likePost, deletePost } from "../../../actions/posts";
+import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
 import Divider from "@material-ui/core/Divider";
 
@@ -34,8 +34,8 @@ import Divider from "@material-ui/core/Divider";
 // import CardHeader from '@mui/material/CardHeader';
 // import { red } from '@mui/material/colors';
 // import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import './styles.css';
+
 
 const TextTypography = withStyles({
   root: {
@@ -49,6 +49,25 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onEdit = () => {
+    setCurrentId(post._id);
+    handleClose();
+  }
+
+  const onDelete = () => {
+    dispatch(deletePost(post._id));
+    handleClose();
+  }
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -77,6 +96,7 @@ const Post = ({ post, setCurrentId }) => {
       </>
     );
   };
+  
 
   const openPost = () => history.push(`/posts/${post._id}`);
 
@@ -141,22 +161,51 @@ const Post = ({ post, setCurrentId }) => {
 
           <Divider variant="middle" />
       </ButtonBase>
+
+
       <CardHeader style={{padding:'0px'}}
           action={
             (user?.result?.googleId === post?.creator ||
               user?.result?._id === post?.creator) && (
               <div className={classes.overlay2}>
-                <IconButton
+                
+                
+                 <IconButton
                   aria-label="settings"
-                  onClick={() => setCurrentId(post._id)}
+                  // onClick={() => setCurrentId(post._id)}
                   style={{ color: "gray" }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
+                 >
+                  
+                     <Button
+                      id="fade-button"
+                      aria-controls={open ? 'fade-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      onClick={handleClick}
+                    >
+                      <MoreVertIcon />
+                      
+                     </Button> 
+                    <Menu
+                      id="fade-menu"
+                      MenuListProps={{
+                        'aria-labelledby': 'fade-button',
+                      }}
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      TransitionComponent={Fade}
+                    >
+                    <MenuItem onClick={() => onEdit(post._id)}>Edit</MenuItem>
+                    <MenuItem onClick={() => onDelete(post._id)} >Delete</MenuItem>
+                    </Menu>
+                  </IconButton> 
               </div>
             )
           }
         />
+
+        
       <CardActions className={classes.cardActions}>
         <IconButton
           className={classes.likeButton}
@@ -166,7 +215,7 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </IconButton>
-        {(user?.result?.googleId === post?.creator ||
+        {/* {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
           //เอา save มาแทนที่
           <IconButton
@@ -176,10 +225,12 @@ const Post = ({ post, setCurrentId }) => {
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
-        )}
+        )} */}
       </CardActions>
     </Card>
   );
 };
 
 export default Post;
+
+
