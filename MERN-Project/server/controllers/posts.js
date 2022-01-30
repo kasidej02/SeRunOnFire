@@ -156,7 +156,7 @@ export const savePost = async (req, res) => {
   const user = await User.findById(req.userId);
   const saved = user.saved.find((saved) => saved == id) ? true : false;
   if (!saved) {
-    // user.saved.push(id);
+    user.saved.push(id);
     const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
       new: true,
     });

@@ -91,7 +91,7 @@ const Home = () => {
   const [tags, setTag] = useState([]);
   const [click,setClick] = useState('');
   const user = JSON.parse(localStorage.getItem('profile'));
-  // console.log(user);
+  console.log(user);
   //   useEffect(() => {
   //     dispatch(getPosts());
   //   }, [currentId, dispatch]);
