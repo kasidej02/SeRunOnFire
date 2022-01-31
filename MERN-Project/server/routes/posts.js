@@ -9,13 +9,15 @@ import {
   commentPost,
   deletePost,
   savePost,
-  deleteSavedPost
+  deleteSavedPost,
+  getSavedPost
 } from "../controllers/posts.js";
 import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.get("/search", getPostsBySearch);
+router.get("/saved",getSavedPost);
 router.get("/", getPosts);
 router.get("/:id", getPost);
 router.post("/", auth, createPost);

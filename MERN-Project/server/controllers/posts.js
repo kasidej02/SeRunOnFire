@@ -27,14 +27,31 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getSavedPost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated." });
+
+  try {
+    const user = await User.findById(req.userId);
+
+    let posts = await PostMessage.find({_id: {$in: user.saved}})
+    // console.log(posts);
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
 
   try {
     const title = new RegExp(searchQuery, "i");
 
+    // const posts = await PostMessage.find({
+    //   $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    // });
     const posts = await PostMessage.find({
-      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+      $or: [{ title }, { tags: title }],
     });
     // console.log(posts);
     res.json({ data: posts });
@@ -177,5 +194,6 @@ export const deleteSavedPost = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(userId,{saved: update},{new:true})
   res.json(updatedUser);
 };
+
 
 export default router;

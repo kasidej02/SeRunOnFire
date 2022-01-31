@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import express from "express";
 
 import User from "../models/user.js";
-import PostMessage from "../models/postMessage.js"
 
 const router = express.Router();
 const secret = "test";
@@ -78,16 +77,18 @@ export const signup = async (req, res) => {
 export const updateUser = async (req, res) => {
   // const { id } = req.params;
   const { name, email, password } = req.body;
-
-  // if (!mongoose.Types.ObjectId.isValid(id))
-  //   return res.status(404).send(`No user with id: ${id}`);
-  const hashedPassword = await bcrypt.hash(password, 12);
-  const update = { name, email, password:hashedPassword, _id: req.userId};
-
+  let update ={}
+  if(password != ''){
+    const hashedPassword = await bcrypt.hash(password, 12);
+    update = { name, email, password:hashedPassword, _id: req.userId};
+  }
+  else{
+    update = { name, email, _id: req.userId};
+  }
   const updateUser = await User.findByIdAndUpdate(req.userId, update, {
     new: true,
   });
-
+  console.log(updateUser);
   res.json(updateUser);
 };
 
@@ -102,18 +103,6 @@ export const deleteUser = async (req, res) => {
   res.json({ message: "User deleted successfully." });
 };
 
-export const getSavedPost = async (req, res) => {
-  if (!req.userId) return res.json({ message: "Unauthenticated." });
-  // const { userId } = req.body;
-  try {
-    const user = await User.findById(req.userId);
 
-    let posts = await PostMessage.find({_id: {$in: user.saved}})
-    // console.log(posts);
-    res.json({ data: posts });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
 
 export default router;
