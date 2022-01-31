@@ -15,26 +15,28 @@ import "../../index.css";
 import { useLocation, useParams, useHistory } from "react-router-dom";
 
 const ProfileDetail = () => {
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
+   const user = JSON.parse(localStorage.getItem("profile"));
+   const [userData, setUserData] = useState({
+    name: user.result.name,
+    email: user.result.email,
     password: "",
   });
 
   //   const user = useSelector((state) => (currentId ? state.users.users.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem("profile"));
+ 
   // console.log(user);
   const history = useHistory();
 
   // useEffect(() => {
-  //   if (user) setUserData(user);
-  // }, [user]);
+    
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateUser(user.result._id,{ ...userData }));
+    // console.log(userData);
+    dispatch(updateUser({ ...userData }));
     //   clear();
     history.push("/profile");
   };
@@ -59,7 +61,7 @@ const ProfileDetail = () => {
           variant="outlined"
           label="Name"
           fullWidth
-          value={user.result.name}
+          value={userData.name}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
         />
 
@@ -71,7 +73,7 @@ const ProfileDetail = () => {
           fullWidth
           multiline
           // rows={4}
-          value={user.result.email}
+          value={userData.email}
           onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         />
 

@@ -217,7 +217,8 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </IconButton>
         {(user?.result?.googleId !== post?.creator ||
-          user?.result?._id !== post?.creator) &&user?.result&& (
+          user?.result?._id !== post?.creator) &&user?.result
+          && (
           //เอา save มาแทนที่
           <IconButton
                 aria-label="settings"

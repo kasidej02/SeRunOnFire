@@ -14,4 +14,5 @@ export const END_LOADING = 'END_LOADING';
 
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
+export const UPDATE_USER = 'UPDATE_USER';
 export const FETCH_SAVE = 'FETCH_SAVE';
