@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CircularProgress,Paper,Typography } from "@material-ui/core";
+import { Grid, CircularProgress, Paper, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 import Post from "./Post/Post";
 import useStyles from "./styles";
+import Swal from "sweetalert2";
 
 const Posts = ({ setCurrentId }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
@@ -16,7 +17,14 @@ const Posts = ({ setCurrentId }) => {
           Posts not found
         </Typography>
       </Paper>
+
     );
+    // return Swal.fire({
+    //   title: "Error!",
+    //   text: "Do you want to continue",
+    //   icon: "error",
+    //   confirmButtonText: "yes",
+    // });
   }
 
   return isLoading ? (

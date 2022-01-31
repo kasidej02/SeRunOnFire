@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
-import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Pagination from "../Pagination";
 
 import Posts from "../Posts/Posts";
@@ -87,41 +86,12 @@ const Profile = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const classes = useStyles();
-  const [search, setSearch] = useState("");
   const [tags, setTag] = useState([]);
 
   //   useEffect(() => {
   //     dispatch(getPosts());
   //   }, [currentId, dispatch]);
 
-  const searchPost = () => {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool'
-    })
-    if (search.trim() || tags) {
-      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
-      history.push(
-        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
-      );
-    } else {
-      history.push("/");
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
-      //press enter
-      //search post
-      searchPost();
-    }
-  };
-
-  const handleAdd = (tag) => setTag([...tags, tag]);
-  const handleDelete = (tagToDetele) =>
-    setTag(tags.filter((tag) => tag !== tagToDetele));
 
   return (
     <Grow in>
@@ -137,46 +107,7 @@ const Profile = () => {
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppBar
-              className={classes.appBarSearch}
-              position="static"
-              color="inherit"
-            >
-              
-              <CssTextField
-                className="inputRounded"
-                size="small"
-                name="search"
-                variant="outlined"
-                label="Search review"
-                onKeyPress={handleKeyPress}
-                fullWidth
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-
-              <CssChipInput
-                className="inputRounded"
-                id="custom-css-outlined-input"
-                style={{ margin: "10px 0" }}
-                value={tags}
-                onAdd={handleAdd}
-                onDelete={handleDelete}
-                label="Search Tags"
-                variant="outlined"
-              />
-
-              <Button
-                onClick={searchPost}
-                className={classes.searchButton}
-                // className='buttons'
-                // className='button button--calypso'
-                // variant="contained"
-                // color="primary"
-              >
-                Search
-              </Button>
-            </AppBar>
+ 
             <ProfileDetail />
             {!searchQuery && !tags.length && (
               <Paper elevation={6} className={classes.pagination}>

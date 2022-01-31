@@ -87,43 +87,46 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const classes = useStyles();
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [tags, setTag] = useState([]);
   const [click,setClick] = useState('');
   const user = JSON.parse(localStorage.getItem('profile'));
-  console.log(user);
+  // console.log(user);
   //   useEffect(() => {
   //     dispatch(getPosts());
   //   }, [currentId, dispatch]);
 
-  const searchPost = () => {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool'
-    })
-    if (search.trim() || tags) {
-      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
-      history.push(
-        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
-      );
-    } else {
-      history.push("/");
-    }
-  };
+  // const searchPost = () => {
+  //   // Swal.fire({
+  //   //   title: 'Error!',
+  //   //   text: 'Do you want to continue',
+  //   //   icon: 'error',
+  //   //   confirmButtonText: 'Cool'
+  //   // })
+  //   if (search.trim() || tags) {
+  //     dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+  //     history.push(
+  //       `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+  //     );
+  //   } 
 
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
-      //press enter
-      //search post
-      searchPost();
-    }
-  };
+  //   else {
+  //     history.push("/");
+  //   }
+  // };
 
-  const handleAdd = (tag) => setTag([...tags, tag]);
-  const handleDelete = (tagToDetele) =>
-    setTag(tags.filter((tag) => tag !== tagToDetele));
+  // const handleKeyPress = (e) => {
+  //   console.log(e.keyCode)
+  //   if (e.keyCode === 13 || e.key === "Enter") {
+  //     //press enter
+  //     //search post
+  //     searchPost();
+  //   }
+  // };
+
+  // const handleAdd = (tag) => setTag([...tags, tag]);
+  // const handleDelete = (tagToDetele) =>
+  //   setTag(tags.filter((tag) => tag !== tagToDetele));
 
   return (
     <Grow in>
@@ -139,7 +142,7 @@ const Home = () => {
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppBar
+            {/* <AppBar
               className={classes.appBarSearch}
               position="static"
               color="inherit"
@@ -155,18 +158,7 @@ const Home = () => {
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-              />
-
-              <CssChipInput
-                className="inputRounded"
-                id="custom-css-outlined-input"
-                style={{ margin: "10px 0" }}
-                value={tags}
-                onAdd={handleAdd}
-                onDelete={handleDelete}
-                label="Search Tags"
-                variant="outlined"
-              />
+              /> */}
 
 {/* <button className="blob-btn">
     Blob Button
@@ -179,17 +171,8 @@ const Home = () => {
       </span>
     </span>
   </button> */}
-              <Button
-                onClick={searchPost}
-                className={classes.searchButton}
-                // className='buttons'
-                // className='button button--calypso'
-                // variant="contained"
-                // color="primary"
-              >
-                Search
-              </Button>
-            </AppBar>
+             
+            {/* </AppBar> */}
             {/* <Button onClick={() => history.push(`/posts/create?currentId=${currentId}&setCurrentId=${setCurrentId}`)}> + Review</Button> */}
             {/* <Button onClick={() => history.push(`/posts/create/${currentId}`)}> + Review</Button> */}
             {user?.result?.name&&<Button onClick={() => setClick(1)}>+Review</Button>}

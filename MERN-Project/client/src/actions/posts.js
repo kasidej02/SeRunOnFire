@@ -116,7 +116,7 @@ export const savePost = (id) => async (dispatch) => {
 
     if (data.post) {
       profile.result = data.result;
-      console.log(profile);
+      // console.log(profile);
       localStorage.setItem('profile', JSON.stringify(profile));
       dispatch({ type: SAVE, payload: data });
     } else alert("You have been saved");

@@ -16,6 +16,7 @@ import { useLocation, useParams, useHistory } from "react-router-dom";
 
 const ProfileDetail = () => {
    const user = JSON.parse(localStorage.getItem("profile"));
+   const [toggle,setToggle] = useState(0)
    const [userData, setUserData] = useState({
     name: user.result.name,
     email: user.result.email,
@@ -29,16 +30,15 @@ const ProfileDetail = () => {
   // console.log(user);
   const history = useHistory();
 
-  // useEffect(() => {
+  useEffect(() => {
     
-  // }, []);
+  }, [toggle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(userData);
     dispatch(updateUser({ ...userData }));
-    //   clear();
-    history.push("/profile");
+    setToggle(1)
   };
 
   return (
