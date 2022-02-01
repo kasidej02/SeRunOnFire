@@ -4,6 +4,7 @@ import {
   FETCH_BY_SEARCH,
   FETCH_ALL,
   FETCH_POST,
+  FETCH_SAVE,
   CREATE,
   UPDATE,
   DELETE,
@@ -124,3 +125,15 @@ export const savePost = (id) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const getSavedPost = () => async (dispatch) => {
+  try{
+      const { data: { data } } =await api.getSavedPost();
+      // console.log(data);
+      // dispatch({ type: START_LOADING });
+      dispatch({ type: FETCH_SAVE, payload:data });
+      // dispatch({ type: END_LOADING });
+  } catch (error) {
+      console.log(error)
+  }
+}

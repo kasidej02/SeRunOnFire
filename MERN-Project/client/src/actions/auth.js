@@ -1,4 +1,4 @@
-import { AUTH, FETCH_SAVE, UPDATE_USER} from '../constants/actionTypes';
+import { AUTH, UPDATE_USER} from '../constants/actionTypes';
 import * as api from '../api/index';
 import Swal from 'sweetalert2'
 
@@ -37,15 +37,6 @@ export const signup = (formData, history) => async (dispatch) => {
     }
 };
 
-export const fetchSavedPost = (userId, history) => async (dispatch) => {
-    try{
-        const { data } =await api.fetchSavedPost(userId);
-        dispatch({ type: FETCH_SAVE, payload:data });
-        history.push('/profile');
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 export const updateUser = (formData) => async (dispatch) => {
     const profile = JSON.parse(localStorage.getItem("profile"));

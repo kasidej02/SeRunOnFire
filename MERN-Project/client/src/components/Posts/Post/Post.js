@@ -15,7 +15,8 @@ import {
   Button
 } from "@material-ui/core/";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Bookmark from '@material-ui/icons/BookmarkBorder';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+import Bookmark from '@material-ui/icons/Bookmark';
 import { amber } from '@mui/material/colors';
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -50,7 +51,7 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
-
+  // console.log(user?.result?.saved);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -98,6 +99,9 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
   
+  const Save = () => {
+      return user?.result?.saved.find((save) => save === post._id)? (<Bookmark />):(<BookmarkBorder/>); 
+  }
 
   const openPost = () => history.push(`/posts/${post._id}`);
 
@@ -225,8 +229,8 @@ const Post = ({ post, setCurrentId }) => {
                 style={{ color: amber[400] }}
                 onClick={() => dispatch(savePost(post._id))}
               >
-                <Bookmark />
-              </IconButton>
+                <Save />
+          </IconButton>
         )}
       </CardActions>
     </Card>

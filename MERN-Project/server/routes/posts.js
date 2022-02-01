@@ -9,7 +9,6 @@ import {
   commentPost,
   deletePost,
   savePost,
-  deleteSavedPost,
   getSavedPost
 } from "../controllers/posts.js";
 import auth from "../middleware/auth.js";
@@ -17,11 +16,11 @@ import auth from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/search", getPostsBySearch);
-router.get("/saved",getSavedPost);
+router.get("/saved",auth,getSavedPost);
 router.get("/", getPosts);
 router.get("/:id", getPost);
 router.post("/", auth, createPost);
-router.patch("/saved", auth, deleteSavedPost);
+// router.patch("/saved", auth, deleteSavedPost);
 router.patch("/:id", auth, updatePost);
 router.delete("/:id", auth, deletePost);
 router.patch("/:id/likePost", auth, likePost);

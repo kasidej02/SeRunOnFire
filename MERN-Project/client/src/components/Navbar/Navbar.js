@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 
 import decode from "jwt-decode";
 import * as actionType from "../../constants/actionTypes";
-import { getPosts, getPostsBySearch } from "../../actions/posts";
+import { getSavedPost, getPostsBySearch } from "../../actions/posts";
 
 import useStyles from "./styles";
 import logo from "../../images/logo2.png";
@@ -116,6 +116,11 @@ const Navbar = () => {
     }
   };
 
+  const setSavedPost = () => {
+    dispatch(getSavedPost())
+    history.push('/profile')
+  }
+
 
   return (
     <Container className={classes.fixedNavbar} maxWidth="xl">
@@ -185,7 +190,7 @@ const Navbar = () => {
               <IconButton
                 aria-label="settings"
                 style={{ color: amber[400] }}
-                onClick={() => history.push('/profile')}
+                onClick={() => setSavedPost()}
               >
                 <Bookmark />
               </IconButton>

@@ -19,10 +19,9 @@ export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, {valu
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const savePost = (id) => API.post(`/posts/${id}/save`);
-
+export const getSavedPost = () => API.get(`/posts/saved`);
 
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const updateUser = (formData) => API.patch('/user/update',formData);
-export const fetchSavedPost = (userId) => API.get(`/user/saved`,userId);

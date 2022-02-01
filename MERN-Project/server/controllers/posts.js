@@ -34,7 +34,7 @@ export const getSavedPost = async (req, res) => {
     const user = await User.findById(req.userId);
 
     let posts = await PostMessage.find({_id: {$in: user.saved}})
-    // console.log(posts);
+    // console.log(posts.length);
     res.json({ data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -167,33 +167,48 @@ export const savePost = async (req, res) => {
 
   if (!req.userId) return res.json({ message: "Unauthenticated." });
 
-  // if (!mongoose.Types.ObjectId.isValid(id))
-  //   return res.status(404).send(`No post with id: ${id}`);
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
   const post = await PostMessage.findById(id);
   const user = await User.findById(req.userId);
-  const saved = user.saved.find((saved) => saved == id) ? true : false;
-  if (!saved) {
+  // console.log(id);
+  const found = user.saved.find((saved) => saved === String(id))
+  // console.log(found);
+  if(!found){
+    //save post
     user.saved.push(id);
-    const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
-      new: true,
-    });
+  }
+  else{
+    //dissave post
+    user.saved = user.saved.filter((saved) => saved !== String(id))
+  }
+  const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
+        new: true,
+      });
+  // const saved = user.saved.find((saved) => saved == id) ? true : false;
+  // if (!saved) {
+  //   user.saved.push(id);
+  //   const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
+  //     new: true,
+  //   });
     // const data = new ObjectId({token:token,result:updatedUser})
     res.json({post,result:updatedUser});
     
-  } else {
-    return res.json({ message: "You had saved this post" });
-  }
+  // } else {
+  //   return res.json({ message: "You had saved this post" });
+  // }
 };
 
-export const deleteSavedPost = async (req, res) => {
-  const { postId , userId} = req.query;
+// export const deleteSavedPost = async (req, res) => {
+//   const { postId , userId} = req.query;
 
-  const user = await User.findById(userId)
-  console.log(user.saved);
-  const update = user.saved.filter((post) => post != postId)
-  const updatedUser = await User.findByIdAndUpdate(userId,{saved: update},{new:true})
-  res.json(updatedUser);
-};
+//   const user = await User.findById(userId)
+//   console.log(user.saved);
+//   const update = user.saved.filter((post) => post != postId)
+//   const updatedUser = await User.findByIdAndUpdate(userId,{saved: update},{new:true})
+//   res.json(updatedUser);
+// };
 
 
 export default router;

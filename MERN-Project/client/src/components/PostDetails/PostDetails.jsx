@@ -30,7 +30,7 @@ const PostDetails = () => {
     }
 
     return(
-        <Paper style={{ padding: '80px 20px 20px 20px', borderRadius: '0px',boxShadow:'0' }} elevation={6}>
+        <Paper style={{ padding: '80px 20px 20px 20px', borderRadius: '0px'}} elevation={6}>
             <div className={classes.card}>
                 <Grid className={classes.imageSection}>
                     <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
