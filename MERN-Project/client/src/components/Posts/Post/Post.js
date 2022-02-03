@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -12,12 +12,12 @@ import {
   Menu,
   MenuItem,
   Fade,
-  Button
+  Button,
 } from "@material-ui/core/";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
-import Bookmark from '@material-ui/icons/Bookmark';
-import { amber } from '@mui/material/colors';
+import BookmarkBorder from "@material-ui/icons/BookmarkBorder";
+import Bookmark from "@material-ui/icons/Bookmark";
+import { amber } from "@mui/material/colors";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -27,7 +27,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { likePost, deletePost, savePost } from "../../../actions/posts";
+import { likePost, deletePost, savePost, getSavedPost } from "../../../actions/posts";
 import useStyles from "./styles";
 import Divider from "@material-ui/core/Divider";
 
@@ -36,8 +36,8 @@ import Divider from "@material-ui/core/Divider";
 // import CardHeader from '@mui/material/CardHeader';
 // import { red } from '@mui/material/colors';
 // import IconButton from '@mui/material/IconButton';
-import './styles.css';
-
+import "./styles.css";
+// import { getSavedPost } from "../../../api";
 
 const TextTypography = withStyles({
   root: {
@@ -54,6 +54,7 @@ const Post = ({ post, setCurrentId }) => {
   // console.log(user?.result?.saved);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,12 +65,12 @@ const Post = ({ post, setCurrentId }) => {
   const onEdit = () => {
     setCurrentId(post._id);
     handleClose();
-  }
+  };
 
   const onDelete = () => {
     dispatch(deletePost(post._id));
     handleClose();
-  }
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -98,31 +99,36 @@ const Post = ({ post, setCurrentId }) => {
       </>
     );
   };
-  
+
   const Save = () => {
-      return user?.result?.saved.find((save) => save === post._id)? (<Bookmark />):(<BookmarkBorder/>); 
-  }
+    
+    return user?.result?.saved.find((save) => save === post._id) ? (
+      <Bookmark />
+    ) : (
+      <BookmarkBorder />
+    );
+  };
 
   const openPost = () => history.push(`/posts/${post._id}`);
 
   return (
     <Card className={classes.card} raised elevation={4}>
-      
       <ButtonBase className={classes.cardAction} onClick={openPost}>
-        <CardMedia style={{height:'337px',overflow:'hidden'}}>
-        <CardMedia
-          // className='box-text'
-          className={`${classes.media} hover-media`}
+        <CardMedia style={{ height: "337px", overflow: "hidden" }}>
+          <CardMedia
+            // className='box-text'
+            className={`${classes.media} hover-media`}
+            // className='img-hover-zoom'
+            // image={
+            //   post.selectedFile ||
+            //   "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+            // }
 
-          // className='img-hover-zoom'
-          // image={
-          //   post.selectedFile ||
-          //   "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-          // }
-          
-          image={post.selectedFile ||
-             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"}
-        />
+            image={
+              post.selectedFile ||
+              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+            }
+          />
         </CardMedia>
 
         <Typography
@@ -155,62 +161,61 @@ const Post = ({ post, setCurrentId }) => {
         </div>
 
         <Grid container spacing={3}>
-        <Grid item xs className={classes.grid}>
-        <Typography className={classes.by} color='textSecondary'>BY</Typography>
-        <Typography className={classes.ownerPost}>{post.name}</Typography>
+          <Grid item xs className={classes.grid}>
+            <Typography className={classes.by} color="textSecondary">
+              BY
+            </Typography>
+            <Typography className={classes.ownerPost}>{post.name}</Typography>
+          </Grid>
+          <Grid item xs justifyContent="right">
+            <Typography className={classes.time} color="textSecondary">
+              {moment(post.createdAt).fromNow()}{" "}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs justifyContent="right">
-        <Typography className={classes.time} color='textSecondary'>{moment(post.createdAt).fromNow()} </Typography>
-        </Grid>
-      </Grid>
 
-          <Divider variant="middle" />
+        <Divider variant="middle" />
       </ButtonBase>
 
+      <CardHeader
+        style={{ padding: "0px" }}
+        action={
+          (user?.result?.googleId === post?.creator ||
+            user?.result?._id === post?.creator) && (
+            <div className={classes.overlay2}>
+              <IconButton
+                aria-label="settings"
+                // onClick={() => setCurrentId(post._id)}
+                style={{ color: "gray" }}
+              >
+                <Button
+                  id="fade-button"
+                  aria-controls={open ? "fade-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <MoreVertIcon />
+                </Button>
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                >
+                  <MenuItem onClick={() => onEdit(post._id)}>Edit</MenuItem>
+                  <MenuItem onClick={() => onDelete(post._id)}>Delete</MenuItem>
+                </Menu>
+              </IconButton>
+            </div>
+          )
+        }
+      />
 
-      <CardHeader style={{padding:'0px'}}
-          action={
-            (user?.result?.googleId === post?.creator ||
-              user?.result?._id === post?.creator) && (
-              <div className={classes.overlay2}>
-                
-                
-                 <IconButton
-                  aria-label="settings"
-                  // onClick={() => setCurrentId(post._id)}
-                  style={{ color: "gray" }}
-                 >
-                  
-                     <Button
-                      id="fade-button"
-                      aria-controls={open ? 'fade-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleClick}
-                    >
-                      <MoreVertIcon />
-                      
-                     </Button> 
-                    <Menu
-                      id="fade-menu"
-                      MenuListProps={{
-                        'aria-labelledby': 'fade-button',
-                      }}
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      TransitionComponent={Fade}
-                    >
-                    <MenuItem onClick={() => onEdit(post._id)}>Edit</MenuItem>
-                    <MenuItem onClick={() => onDelete(post._id)} >Delete</MenuItem>
-                    </Menu>
-                  </IconButton> 
-              </div>
-            )
-          }
-        />
-
-        
       <CardActions className={classes.cardActions}>
         <IconButton
           className={classes.likeButton}
@@ -221,22 +226,24 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </IconButton>
         {(user?.result?.googleId !== post?.creator ||
-          user?.result?._id !== post?.creator) &&user?.result
-          && (
-          //เอา save มาแทนที่
-          <IconButton
-                aria-label="settings"
-                style={{ color: amber[400] }}
-                onClick={() => dispatch(savePost(post._id))}
-              >
-                <Save />
-          </IconButton>
-        )}
+          user?.result?._id !== post?.creator) &&
+          user?.result && (
+            //เอา save มาแทนที่
+            <IconButton
+              aria-label="settings"
+              style={{ color: amber[400] }}
+              onClick={() => {
+                dispatch(savePost(post._id));
+                // console.log("clicked");
+                // history.push('/profile')
+              }}
+            >
+              <Save />
+            </IconButton>
+          )}
       </CardActions>
     </Card>
   );
 };
 
 export default Post;
-
-

@@ -6,9 +6,10 @@ import Post from "./Post/Post";
 import useStyles from "./styles";
 import Swal from "sweetalert2";
 
-const Posts = ({ setCurrentId }) => {
+const Posts = ({ setCurrentId}) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
   const classes = useStyles();
+  console.log(posts,isLoading);
 
   if (!posts.length && !isLoading) {
     return (
@@ -17,7 +18,6 @@ const Posts = ({ setCurrentId }) => {
           Posts not found
         </Typography>
       </Paper>
-
     );
     // return Swal.fire({
     //   title: "Error!",

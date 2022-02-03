@@ -175,8 +175,9 @@ const Home = () => {
             {/* </AppBar> */}
             {/* <Button onClick={() => history.push(`/posts/create?currentId=${currentId}&setCurrentId=${setCurrentId}`)}> + Review</Button> */}
             {/* <Button onClick={() => history.push(`/posts/create/${currentId}`)}> + Review</Button> */}
-            {user?.result?.name&&<Button onClick={() => setClick(1)}>+Review</Button>}
-            {click&&<Form currentId={currentId} setCurrentId={setCurrentId} />}
+            {/* {user?.result?.name&&<Button onClick={() => setClick(1)}>+Review</Button>} */}
+            {/* {click&&<Form currentId={currentId} setCurrentId={setCurrentId} />} */}
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
             {!searchQuery && !tags.length && (
               <Paper elevation={6} className={classes.pagination}>
                 <Pagination page={page} />

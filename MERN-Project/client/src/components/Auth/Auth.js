@@ -50,6 +50,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (isSignup) {
+      console.log(formData);
       dispatch(signup(formData, history));
     } else {
       dispatch(signin(formData, history));
@@ -148,7 +149,7 @@ const SignUp = () => {
               <Input
                 name="confirmPassword"
                 label="Confirm Password"
-                handlechange={handleChange}
+                handleChange={handleChange}
                 type="password"
               />
             )}

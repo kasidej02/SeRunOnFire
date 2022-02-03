@@ -14,7 +14,7 @@ const Form = ({currentId,setCurrentId}) => {
    tags: '', 
    selectedFile: '' });
   //  const {currentId} = useParams()
-   console.log(currentId);
+  //  console.log(currentId);
   // const [currentId,setCurrentId] = useState(0)
   // const params = useQuery()
   //  console.log(params.get("currentId"));

@@ -23,5 +23,5 @@ export const getSavedPost = () => API.get(`/posts/saved`);
 
 
 export const signIn = (formData) => API.post('/user/signin', formData);
-export const signUp = (formData) => API.post('/user/signup', formData);
+export const signUp = (formData) => API.post('/user/signup', formData, );
 export const updateUser = (formData) => API.patch('/user/update',formData);

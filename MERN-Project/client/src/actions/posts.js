@@ -113,13 +113,13 @@ export const savePost = (id) => async (dispatch) => {
 
   try {
     const { data } = await api.savePost(id);
-    console.log(data.result);
+    // console.log(data.post);
 
     if (data.post) {
       profile.result = data.result;
       // console.log(profile);
       localStorage.setItem('profile', JSON.stringify(profile));
-      dispatch({ type: SAVE, payload: data });
+      dispatch({ type: SAVE, payload: data.post });
     } else alert("You have been saved");
   } catch (error) {
     console.log(error.message);
@@ -130,10 +130,10 @@ export const getSavedPost = () => async (dispatch) => {
   try{
       const { data: { data } } =await api.getSavedPost();
       // console.log(data);
-      // dispatch({ type: START_LOADING });
-      dispatch({ type: FETCH_SAVE, payload:data });
       // dispatch({ type: END_LOADING });
+      dispatch({ type: FETCH_SAVE, payload:data });
+      
   } catch (error) {
       console.log(error)
-  }
+  }finally{dispatch({ type: END_LOADING });}
 }

@@ -15,14 +15,15 @@ import "../../index.css";
 import { useLocation, useParams, useHistory } from "react-router-dom";
 
 const ProfileDetail = () => {
-   const user = JSON.parse(localStorage.getItem("profile"));
-   const [toggle,setToggle] = useState(0)
-   const [userData, setUserData] = useState({
+   let user = JSON.parse(localStorage.getItem("profile"));
+   const defualt = {
     name: user.result.name,
     email: user.result.email,
     password: "",
-  });
-
+  }
+  const [toggle,setToggle] = useState(0)
+  const [userData, setUserData] = useState(defualt);
+   
   //   const user = useSelector((state) => (currentId ? state.users.users.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -30,15 +31,16 @@ const ProfileDetail = () => {
   // console.log(user);
   const history = useHistory();
 
-  useEffect(() => {
-    
-  }, [toggle]);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(userData);
     dispatch(updateUser({ ...userData }));
-    setToggle(1)
+    alert("Profile updated, plaese refresh this page")
+    history.push('/profile')
   };
 
   return (
