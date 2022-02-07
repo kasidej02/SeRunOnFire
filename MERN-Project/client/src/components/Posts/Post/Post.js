@@ -102,7 +102,7 @@ const Post = ({ post, setCurrentId }) => {
 
   const Save = () => {
     
-    return user?.result?.saved.find((save) => save === post._id) ? (
+    return user?.result?.saved?.find((save) => save === post._id) ? (
       <Bookmark />
     ) : (
       <BookmarkBorder />
