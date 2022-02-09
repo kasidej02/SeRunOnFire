@@ -15,12 +15,14 @@ export default makeStyles((theme) => ({
       flexWrap: 'wrap',
       flexDirection: 'column',
     },
-    marginTop:'100px'
+    marginTop:'60px',
+    // textAlign: 'center'
   },
   section: {
     borderRadius: '0px',
     margin: '50px',
     flex: 1,
+    marginTop:'10px'
   },
   imageSection: {
     marginLeft: '0px',
@@ -46,12 +48,14 @@ export default makeStyles((theme) => ({
   commentsOutContainer: {
     display: 'flex',
     justifyContent: 'space-between',
+    color:'#9ACD32'
   },
 
   commentsInnerContainer: {
     height: '200px',
     overflowY:'auto',
     marginRight: '30px', 
+    // color : '#d9e650'
   },
   title:{
     fontFamily: 'IBM Plex Sans Thai, sans-serif',
@@ -61,7 +65,7 @@ export default makeStyles((theme) => ({
   tag:{
     fontFamily: 'IBM Plex Sans Thai, sans-serif',
     fontWeight:'500',
-    fontSize: '15px',
+    fontSize: '10px',
   },
   details:{
     fontFamily: 'IBM Plex Sans Thai, sans-serif',

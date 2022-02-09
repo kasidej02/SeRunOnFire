@@ -36,20 +36,20 @@ import "./styles.scss";
 const CssTextField = withStyles({
   root: {
     '& label.Mui-focused': {
-      color: '#f14a16',
+      color: '#9ACD32',
     },
     '& .MuiInput-underline:after': {
-      borderBottomColor: '#f14a16',
+      borderBottomColor: '#9ACD32',
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         // borderColor: 'black',
       },
       '&:hover fieldset': {
-        borderColor: '#f14a16',
+        borderColor: '#9ACD32',
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#f14a16',
+        borderColor: '#9ACD32',
       },
     },
   margin: "auto"
@@ -169,7 +169,7 @@ const Navbar = () => {
                 variant="outlined"
                 label="Search review"
                 onKeyPress={handleKeyPress}
-                fullWidth
+                // fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

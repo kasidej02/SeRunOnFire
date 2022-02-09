@@ -1,8 +1,32 @@
 import React, { useState, useRef } from "react";
-import { Typography, TextField, Button } from "@material-ui/core";
+import { Typography, TextField, Button , withStyles} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { commentPost } from "../../actions/posts";
 import  useStyles  from "./styles";
+import "../../index.css";
+
+
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: '#9ACD32',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: '#9ACD32',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          // borderColor: 'black',
+        },
+        '&:hover fieldset': {
+          borderColor: '#9ACD32',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#9ACD32',
+        },
+      },
+    },
+  })(TextField);
 
 const CommentSection = ({ post }) => {
     console.log(post);
@@ -40,22 +64,42 @@ const CommentSection = ({ post }) => {
                     <div ref={commentsRef} />
                 </div>
                 { user?.result?.name && (
-                <div style={{ width: '70%' }}>
+                <div style={{ width: '70%', color: '#d9e650' }}>
                     <Typography gutterBottom variant="h6" >Write your comment</Typography>
-                    <TextField
+                    <CssTextField
+                        className = 'inputMessageRounded'
                         fullWidth
-                        rows={4}
+                        rows={2}
                         variant="outlined"
-                        label="Comment"
+                        label="comment"
                         multiline
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
+                        color = '#9ACD32'
+                        backgroundColor = '#9ACD32'
+                        TextStyle= '#9ACD32'
+                        sx={{ 
+                            input: { 
+                                color: '#d9e650',
+                                backgroundColor : '#d9e650'
+                             } 
+                        }}
+                                                
                     />
-                    <Button style={{marginTop: '10px'}} 
-                    fullWidth 
+                    <Button style={{
+                        marginTop: '10px',
+                        backgroundColor:'#d9e650',
+                        borderRadius:'100px',
+                        padding: '10px 25px',
+                        fontFamily: 'IBM Plex Sans Thai, sans-serif',
+                        fontWeight:'500',
+                        fontSize: '12px',
+                        color: 'white'
+                    
+                }} 
+                    // fullWidth 
                     disabled={!comment}
-                    color="primary"
-                    variant="contained"
+                    // variant="contained"
                     onClick={handleClick} >
                         Comment
                     </Button>
