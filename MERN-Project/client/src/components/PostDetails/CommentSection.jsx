@@ -52,7 +52,11 @@ const CommentSection = ({ post }) => {
         <div >
             <div className={classes.commentsOuterContainer}>
                 <div className={classes.commentsInnerContainer}>
-                    <Typography gutterBottom variant="h6" >Comments</Typography>
+                    <Typography gutterBottom variant="h6" style={{ 
+                      fontFamily: 'IBM Plex Sans Thai, sans-serif',
+                        fontWeight:'700',
+                        fontSize: '15px',
+                        color:'#9ACD32'}}>Comments</Typography>
                     {comments.map((c, i) => (
                         <Typography key={i} gutterBottom varaiant="subtitle1">
                             <strong>
@@ -64,8 +68,12 @@ const CommentSection = ({ post }) => {
                     <div ref={commentsRef} />
                 </div>
                 { user?.result?.name && (
-                <div style={{ width: '70%', color: '#d9e650' }}>
-                    <Typography gutterBottom variant="h6" >Write your comment</Typography>
+                <div style={{ width: '70%', color: '#9ACD32' }}>
+                    <Typography gutterBottom variant="h6" 
+                    style={{ fontFamily: 'IBM Plex Sans Thai, sans-serif',
+                    fontWeight:'500',
+                    fontSize: '15px',}}
+                    >Write your comment</Typography>
                     <CssTextField
                         className = 'inputMessageRounded'
                         fullWidth
@@ -80,15 +88,15 @@ const CommentSection = ({ post }) => {
                         TextStyle= '#9ACD32'
                         sx={{ 
                             input: { 
-                                color: '#d9e650',
-                                backgroundColor : '#d9e650'
+                                color: '#9ACD32',
+                                backgroundColor : '#9ACD32'
                              } 
                         }}
                                                 
                     />
                     <Button style={{
                         marginTop: '10px',
-                        backgroundColor:'#d9e650',
+                        backgroundColor:'#9ACD32',
                         borderRadius:'100px',
                         padding: '10px 25px',
                         fontFamily: 'IBM Plex Sans Thai, sans-serif',

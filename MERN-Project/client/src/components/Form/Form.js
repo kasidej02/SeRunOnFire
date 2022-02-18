@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, IconButton,Grid } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, IconButton,Grid,withStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
 import "../../index.css";
 import { useLocation, useParams,useHistory } from 'react-router-dom';
+import Swal from "sweetalert2";
+
+
 
 
 const Form = ({currentId,setCurrentId}) => {
@@ -22,6 +25,29 @@ const Form = ({currentId,setCurrentId}) => {
   //   return new URLSearchParams(useLocation().search);
   // }
   // setCurrentId(params.get("currentId"))
+
+  const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: '#9ACD32',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: '#9ACD32',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          // borderColor: 'black',
+        },
+        '&:hover fieldset': {
+          borderColor: '#9ACD32',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#9ACD32',
+        },
+      },
+      // padding:'0px 100px'
+    },
+  })(TextField);
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -43,15 +69,33 @@ const Form = ({currentId,setCurrentId}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if(postData.title==''){
-    //   return alert("Please enter the title")
-    // }
-    // if(postData.message==''){
-    //   return alert("Please enter the massage")
-    // }
-    // if(postData.selectedFile==''){
-    //   return alert("Please select the picture")
-    // }
+    if(postData.title==''){
+      // return alert("Please enter the title")
+      Swal.fire({
+        // title: "Not found!",
+        text: "Please enter the title",
+        icon: "warning",
+        // confirmButtonText: 'Cool'
+      });
+    }
+    if(postData.message==''){
+      // return alert("Please enter the massage")
+      Swal.fire({
+        // title: "Not found!",
+        text: "Please enter the massage",
+        icon: "warning",
+        // confirmButtonText: 'Cool'
+      });
+    }
+    if(postData.selectedFile==''){
+      // return alert("Please select the picture")
+      Swal.fire({
+        // title: "Not found!",
+        text: "Please select the picture",
+        icon: "warning",
+        // confirmButtonText: 'Cool'
+      });
+    }
     if (currentId === 0) {
       dispatch(createPost({ ...postData, name: user?.result?.name}));
       console.log(postData);
@@ -66,7 +110,7 @@ const Form = ({currentId,setCurrentId}) => {
   if(!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
-        <Typography variant='h6' align='center'>
+        <Typography variant='h6' align='center' className={classes.signCode}>
           Please Sign In or Sign Up to create a your review
         </Typography>
       </Paper>
@@ -80,24 +124,24 @@ const Form = ({currentId,setCurrentId}) => {
       className={`${classes.root} ${classes.form}`} 
       onSubmit={handleSubmit}>
 
-        <Typography variant="h6">
+        <Typography variant="h6" className={classes.createCode}>
           {currentId ? `Editing "${post.title}"` : 'Creating Your Review'}
         </Typography>
         
-        <TextField name="title" 
+        <CssTextField name="title" 
         size='small'
         className="inputRounded"
         variant="outlined" label="Title*" 
         fullWidth value={postData.title} 
         onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
 
-        <TextField name="message" 
+        <CssTextField name="message" 
         className="inputMessageRounded"
         variant="outlined" label="Message*" 
         fullWidth multiline rows={4} value={postData.message} 
         onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         
-        <TextField name="tags"
+        <CssTextField name="tags"
         size='small'  
         className="inputRounded"
         variant="outlined" 
@@ -120,6 +164,7 @@ const Form = ({currentId,setCurrentId}) => {
           type="submit" 
           >{currentId ? 'UPDATE' : 'POST'}
         </Button>
+     
         </Grid>
         <Grid item xs={6} md={4}>
         <Button 

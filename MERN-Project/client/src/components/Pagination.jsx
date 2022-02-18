@@ -20,9 +20,9 @@ const Paginate = ({page}) => {
             count={numberOfPages}
             page={Number(page) || 1}
             // variant="outlined"
-            color="primary"
+            // color='#9ACD32'
             renderItem={(item)=>(
-                <PaginationItem  {...item} component={Link} to={`/posts?page=${item.page}`}/>
+                <PaginationItem  {...item} component={Link} to={`/posts?page=${item.page}`} style={{background:'#9ACD32'}}/>
             )}
         />
     );

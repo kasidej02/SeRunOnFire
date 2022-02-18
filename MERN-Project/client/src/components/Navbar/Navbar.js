@@ -52,7 +52,8 @@ const CssTextField = withStyles({
         borderColor: '#9ACD32',
       },
     },
-  margin: "auto"
+  marginLeft: "10px",
+  width: '50%',
   },
 })(TextField);
 
@@ -184,18 +185,30 @@ const Navbar = () => {
                 {user?.result.name.charAt(0)}
               </Avatar>
 
-              <Typography className={classes.userName} variant="h6">
+              <Typography className={classes.userName} variant="h6" style={{marginRight:'0'}}>
                 {user?.result.name}
               </Typography>
               <IconButton
                 aria-label="settings"
-                style={{ color: amber[400] }}
+                style={{ color: '#9ACD32' }}
                 onClick={() => setSavedPost()}
               >
                 <Bookmark />
               </IconButton>
 
-              <Button
+              <button className="blob-btn" onClick={logout} style={{ margin: "auto" }}>
+    LOG OUT
+    <span className="blob-btn__inner">
+      <span className="blob-btn__blobs">
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+
+              {/* <Button
                 style={{ margin: "auto" }}
                 // variant='contained'
                 className={classes.button}
@@ -203,17 +216,31 @@ const Navbar = () => {
                 onClick={logout}
               >
                 Log out
-              </Button>
+              </Button> */}
             </div>
           ) : (
-            <Button
-              className={classes.button}
-              component={Link}
-              to="/auth"
-              size="small"
-            >
-              Sign In
-            </Button>
+
+            <a href="/auth">
+            <button className="blob-btn" style={{ margin: "auto" }} component={Link} to="/auth"
+            size="small">
+    LOG IN
+    <span className="blob-btn__inner">
+      <span className="blob-btn__blobs">
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+        <span className="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button></a>
+            // <Button
+            //   className={classes.button}
+            //   component={Link}
+            //   to="/auth"
+            //   size="small"
+            // >
+            //   Sign In
+            // </Button>
           )}
         </Toolbar>
       </Box>

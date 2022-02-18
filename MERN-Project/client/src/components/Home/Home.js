@@ -33,6 +33,12 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+
+const PaginationCircle = withStyles({
+  root:{
+    background:'#d9e650'
+  }
+})(Pagination);
 //Textfield color custom
 const CssTextField = withStyles({
   root: {
@@ -160,17 +166,7 @@ const Home = () => {
                 onChange={(e) => setSearch(e.target.value)}
               /> */}
 
-{/* <button className="blob-btn">
-    Blob Button
-    <span className="blob-btn__inner">
-      <span className="blob-btn__blobs">
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-        <span className="blob-btn__blob"></span>
-      </span>
-    </span>
-  </button> */}
+
              
             {/* </AppBar> */}
             {/* <Button onClick={() => history.push(`/posts/create?currentId=${currentId}&setCurrentId=${setCurrentId}`)}> + Review</Button> */}

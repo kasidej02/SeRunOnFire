@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
     marginTop: '1rem',
     padding: '16px',
     boxShadow: 'none',
+    // background: '#f14a16',
   },
   gridContainer: {
     [theme.breakpoints.down('xs')]: {
@@ -20,18 +21,19 @@ export default makeStyles((theme) => ({
     },
   },
   searchButton:{
-    border: '1px solid #F14A16',
+    border: '1px solid #9ACD32',
     // borderColor: '#f14a16',
     // borderColor: '#F14A16',
     borderRadius: 100,
-    color: '#F14A16',
+    color: '#9ACD32',
     "&:hover":{
-      backgroundColor: '#F14A16',
+      backgroundColor: '#669933',
       color: '#fff',
     }
   },
   Home:{
     paddingTop: '100px',
-  }
+  },
+  
   }));
 

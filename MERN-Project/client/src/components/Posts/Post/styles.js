@@ -27,6 +27,7 @@ export default makeStyles({
     height: '100%',
     position: 'relative',
     boxShadow:'none',
+    // background:'blue',
   },
   overlay: {
     position: 'absolute',
@@ -66,10 +67,16 @@ export default makeStyles({
     padding: '0 16px 8px 16px',
     display: 'flex',
     justifyContent: 'space-between',
+    // background:'#000',
+    // flexGrow:'1'
   },
   cardAction: {
-    display: 'block',
+    display: 'flex',
     textAlign: 'initial',
+    flexGrow:'1',
+    flexFlow:'column',
+    justifyContent: 'space-between',
+
   },
   typography:{
     fontFamily: 'IBM Plex Sans Thai, sans-serif',
@@ -77,11 +84,11 @@ export default makeStyles({
     // fontStyle: 'Medium',
   }, 
   likeButton: {
-    // background: '#8B9A46',
+    // background: '#9ACD32',
     // border: 0,
     borderRadius: 100,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: '#8B9A46',
+    color: '#9ACD32',
     // height: 50,
     padding: '10px 10px',
   },

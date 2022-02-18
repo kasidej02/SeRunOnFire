@@ -1,7 +1,10 @@
+body{
+  background-color: #f3f3f3;
+}
 .inputRounded body {
     background-color: #f3f3f3;
     margin: 0;
-    padding: 0;
+    padding: 0 50px;
     /* font-size: xx-small; */
     /* font-family: 'Itim', cursive; */
 
@@ -29,6 +32,12 @@
 
   .btn {
     border-radius: 100px;
+  }
+
+  .searchbar{
+    border-radius: 100px;
+    font-size: small;
+    padding: 0px 100px;
   }
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap');

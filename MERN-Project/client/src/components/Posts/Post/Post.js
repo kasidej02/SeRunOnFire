@@ -12,7 +12,7 @@ import {
   Menu,
   MenuItem,
   Fade,
-  Button,
+  Button
 } from "@material-ui/core/";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import BookmarkBorder from "@material-ui/icons/BookmarkBorder";
@@ -92,6 +92,8 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+
+
     return (
       <>
         <FavoriteBorderIcon fontSize="small" />
@@ -100,6 +102,12 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
+  const ButtonCircle = withStyles({
+    root:{
+      // borderRadius:'100px'
+    }
+  })(Button);
+  
   const Save = () => {
     
     return user?.result?.saved?.find((save) => save === post._id) ? (
@@ -114,7 +122,9 @@ const Post = ({ post, setCurrentId }) => {
   return (
     <Card className={classes.card} raised elevation={4}>
       <ButtonBase className={classes.cardAction} onClick={openPost}>
-        <CardMedia style={{ height: "337px", overflow: "hidden" }}>
+        <div style={{width:'100%'}}>
+        <CardMedia style={{ height: "337px",width: '100%', overflow: "hidden"}}>
+         
           <CardMedia
             // className='box-text'
             className={`${classes.media} hover-media`}
@@ -130,7 +140,7 @@ const Post = ({ post, setCurrentId }) => {
             }
           />
         </CardMedia>
-
+        <div>
         <Typography
           className={classes.title}
           // gutterBottom
@@ -159,6 +169,8 @@ const Post = ({ post, setCurrentId }) => {
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
         </div>
+        </div>
+       </div>
 
         <Grid container spacing={3}>
           <Grid item xs className={classes.grid}>
@@ -174,28 +186,32 @@ const Post = ({ post, setCurrentId }) => {
           </Grid>
         </Grid>
 
-        <Divider variant="middle" />
-      </ButtonBase>
+        {/* <Divider variant="middle" /> */}
+      </ButtonBase> 
+      
 
       <CardHeader
-        style={{ padding: "0px" }}
+        style={{ padding: "0px",background:'green'}}
         action={
           (user?.result?.googleId === post?.creator ||
             user?.result?._id === post?.creator) && (
             <div className={classes.overlay2}>
-              <IconButton
+              {/* <IconButton
                 aria-label="settings"
                 // onClick={() => setCurrentId(post._id)}
                 style={{ color: "gray" }}
-              >
+              > */}
                 <Button
+                style={{borderRadius:'100px',
+                // background:'#9ACD32'
+              }}
                   id="fade-button"
                   aria-controls={open ? "fade-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
                 >
-                  <MoreVertIcon />
+                  <MoreVertIcon  style={{color:'#fff'}}/>
                 </Button>
                 <Menu
                   id="fade-menu"
@@ -210,7 +226,7 @@ const Post = ({ post, setCurrentId }) => {
                   <MenuItem onClick={() => onEdit(post._id)}>Edit</MenuItem>
                   <MenuItem onClick={() => onDelete(post._id)}>Delete</MenuItem>
                 </Menu>
-              </IconButton>
+              {/* </IconButton> */}
             </div>
           )
         }

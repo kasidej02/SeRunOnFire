@@ -39,34 +39,34 @@ export default makeStyles((theme) => ({
     borderRadius: 100,
     // background: rgb(255,224,0);
     // background: 'linear-gradient(45deg, rgba(255,224,0,1) 0%, rgba(121,159,3,1) 100%)',
-    background:'#F14A16',
+    background:'#9ACD32',
     color: '#fff',
     "&:hover":{
       // backgroundColor: '#669933',
       // border:'1px solid #f14a16',
       // background: 'linear-gradient(to left, #ffe259, #ffa751)',
-      background:'#D84213',
+      background:'#7ba428',
     }
   },
   googleButton: {
     marginBottom: theme.spacing(2),
-    border: '1px solid #f14a16',
+    border: '1px solid #9ACD32',
     alignItems: 'center',
     // boxShadow:'10px',
     borderRadius:'100px',
     padding:'5px 10px',
-    color:'#f14a16',
+    color:'#9ACD32',
    
   },
   signupButton:{
     padding: '0px 20px',
-    border: '1px solid #F14A16',
+    border: '1px solid #9ACD32',
     // borderColor: '#f14a16',
     // borderColor: '#F14A16',
     borderRadius: 100,
-    color: '#F14A16',
+    color: '#9ACD32',
     "&:hover":{
-      backgroundColor: '#F14A16',
+      backgroundColor: '#9ACc32',
       color: '#fff',
     }
   },

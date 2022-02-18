@@ -32,12 +32,16 @@ const PostDetails = () => {
     }
 
     return(
-        <Paper style={{ padding: '80px 20px 100px 100px', borderRadius: '0px'}} elevation={6}>
+        <Paper style={{ padding: '80px 100px 100px 100px', borderRadius: '0px'}} elevation={6}>
             <div className={classes.card}>
                 <Grid className={classes.imageSection}>
+                    <div style={{height:'500px',width:'500px',position:'relative'}}>
                     <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+                    </div>
+                    <div style={{marginTop:'10px'}}>
                     <Typography className={classes.createdby}>Created by: {post.name}</Typography>
                     <Typography className={classes.createdAt}>{moment(post.createdAt).fromNow()}</Typography>
+               </div>
                 </Grid>
                 <div className={classes.section}>
                     <Typography  className={classes.title}>{post.title}</Typography>

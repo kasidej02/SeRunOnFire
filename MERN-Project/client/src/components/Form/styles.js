@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+    boxShadow: '0px',
   },
   form: {
     display: 'flex',
@@ -20,13 +21,15 @@ export default makeStyles((theme) => ({
   fileInput: {
     width: '97%',
     margin: '10px 0',
+    // borderRadius:'100px',
+    // color:'#9ACD32',
   },
   buttonSubmit: {
     marginLeft: '10px',
     borderRadius: 100,
     // background: rgb(255,224,0);
     // background: 'linear-gradient(45deg, rgba(255,224,0,1) 0%, rgba(121,159,3,1) 100%)',
-    background:'#F14A16',
+    background:'#9ACD32',
     color: '#fff',
     "&:hover":{
       backgroundColor: '#669933',
@@ -34,10 +37,22 @@ export default makeStyles((theme) => ({
   },
   clearInput:{
     marginRight: '0px',
-    border: '1px solid #F14A16',
-    // borderColor: '#F14A16',
+    border: '1px solid #9ACD32',
+    // borderColor: '#669933',
     borderRadius: 100,
-    color: '#F14A16'
+    color: '#9ACD32'
+  },
+  signCode:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    // textAlign: 'right',
+    fontSize: '12px',
+    fontWeight:'500',
+  },
+  createCode:{
+    fontFamily: 'IBM Plex Sans Thai, sans-serif',
+    // textAlign: 'right',
+    fontSize: '15px',
+    fontWeight:'700',
   }
   
 }));

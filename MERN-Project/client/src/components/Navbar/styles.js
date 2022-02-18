@@ -69,13 +69,13 @@ export default makeStyles((theme) => ({
   button: {
     fontSize: '10px',
     padding: '0px 10px 0px 10px',
-    border: '1px solid #F14A16',
+    border: '1px solid #9ACD32',
     // borderColor: '#f14a16',
     // borderColor: '#F14A16',
     borderRadius: 100,
-    color: '#F14A16',
+    color: '#9ACD32',
     "&:hover":{
-      backgroundColor: '#F14A16',
+      backgroundColor: '#669933',
       color:'#fff',
     }
   },

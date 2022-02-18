@@ -6,6 +6,7 @@ import {
   Paper,
   IconButton,
   Grid,
+  withStyles,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
@@ -34,6 +35,28 @@ const ProfileDetail = () => {
   // useEffect(() => {
   //   console.log(user);
   // }, [user]);
+  const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: '#9ACD32',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: '#9ACD32',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          // borderColor: 'black',
+        },
+        '&:hover fieldset': {
+          borderColor: '#9ACD32',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#9ACD32',
+        },
+      },
+      // padding:'0px 100px'
+    },
+  })(TextField);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,12 +74,17 @@ const ProfileDetail = () => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">
+        <Typography variant="h6" style={{
+           fontFamily: 'IBM Plex Sans Thai, sans-serif',
+           // textAlign: 'right',
+           fontSize: '15px',
+           fontWeight:'700',
+        }}>
           {/* {currentId ? `Editing "${user.title}"` : "Creating Your Review"} */}
           Profile
         </Typography>
 
-        <TextField
+        <CssTextField
           name="name"
           size="small"
           className="inputRounded"
@@ -67,7 +95,7 @@ const ProfileDetail = () => {
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
         />
 
-        <TextField
+        <CssTextField
           name="email"
           className="inputMessageRounded"
           variant="outlined"
@@ -79,7 +107,7 @@ const ProfileDetail = () => {
           onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         />
 
-        <TextField
+        <CssTextField
           name="password"
           size="small"
           className="inputRounded"
