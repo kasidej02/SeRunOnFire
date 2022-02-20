@@ -128,20 +128,20 @@ const Form = ({currentId,setCurrentId}) => {
           {currentId ? `Editing "${post.title}"` : 'Creating Your Review'}
         </Typography>
         
-        <CssTextField name="title" 
+        <TextField name="title" 
         size='small'
         className="inputRounded"
         variant="outlined" label="Title*" 
         fullWidth value={postData.title} 
         onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
 
-        <CssTextField name="message" 
+        <TextField name="message" 
         className="inputMessageRounded"
         variant="outlined" label="Message*" 
         fullWidth multiline rows={4} value={postData.message} 
         onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         
-        <CssTextField name="tags"
+        <TextField name="tags"
         size='small'  
         className="inputRounded"
         variant="outlined" 
