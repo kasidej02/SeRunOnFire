@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardActions,
@@ -54,12 +54,27 @@ const Post = ({ post, setCurrentId }) => {
   // console.log(user?.result?.saved);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [likes, setLikes] = useState(post?.likes);
+  const userId = user?.result.googleId || user?.result._id;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const hasLikePost = post.likes.find(
+    (like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikePost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
   };
 
   const onEdit = () => {
@@ -73,21 +88,21 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const Likes = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
+    if (likes.length > 0) {
+      return likes.find(
+        (like) => like === userId
       ) ? (
         <>
           <FavoriteIcon fontSize="small" />
           &nbsp;
-          {post.likes.length > 2
-            ? `You and ${post.likes.length - 1} others`
-            : `${post.likes.length} like${post.likes.length > 1 ? "s" : ""}`}
+          {likes.length > 2
+            ? `You and ${likes.length - 1} others`
+            : `${likes.length} like${likes.length > 1 ? "s" : ""}`}
         </>
       ) : (
         <>
           <FavoriteIcon fontSize="small" />
-          &nbsp;{post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
         </>
       );
     }
@@ -237,10 +252,11 @@ const Post = ({ post, setCurrentId }) => {
           className={classes.likeButton}
           size="small"
           disabled={!user?.result}
-          onClick={() => dispatch(likePost(post._id))}
+          onClick={handleLike}
         >
           <Likes />
         </IconButton>
+
         {(user?.result?.googleId !== post?.creator ||
           user?.result?._id !== post?.creator) &&
           user?.result && (
